@@ -29,3 +29,24 @@ function get_admin(){
         redirect(base_url('auth/logout'));
     }
 }
+
+
+function get_users(){
+    $ci = get_instance();
+    $email = $ci->session->userdata('user_email');
+
+    if($email){
+        $user = $ci->db->get_where('users', ['email' => $email])->row();
+        if($user){
+            $data = [
+                'name' => $user->nama,
+                'email' => $user->email
+            ];
+        } else {
+           $data = null;
+        }
+    } else {
+        $data = null;
+    }
+    return $data;
+}

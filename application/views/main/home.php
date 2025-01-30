@@ -85,6 +85,130 @@
 <!-- herobanner__end -->
 
 
+<!-- best__selling__start -->
+<div class="best__selling sp_bottom_80 mt-3">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="section__title">
+                    <h2>All Product</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <?php foreach($all_product as $ap){ ?>
+            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
+                <div class="grid__wraper">
+                    <div class="grid__wraper__img">
+                        <div class="grid__wraper__img__inner">
+                            <a href="single-product.html">
+                                <img class="primary__image"
+                                    src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
+                                    alt="Primary Image">
+                                <img class="secondary__image"
+                                    src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
+                                    alt="Secondary Image">
+                            </a>
+                        </div>
+                        <div class="grid__wraper__icon">
+                            <ul>
+                                <li>
+                                    <span data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <a class="quick__view__action" href="#" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Quick View"
+                                            data-bs-original-title="Quick View">
+                                            <i class="far fa-eye"></i>
+                                        </a>
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart"
+                                        data-bs-original-title="Add To Cart">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="grid__wraper__info">
+                        <h3 class="grid__wraper__tittle">
+                            <a href="single-product.html" tabindex="0"><?= $ap->product_name ?></a>
+                        </h3>
+                        <div class="grid__wraper__price">
+                            <?php
+                                        if($ap->product_discount > 0 || $ap->product_discount != '' || $ap->product_discount != null){
+                                            $discount = $ap->product_discount / 100 * $ap->product_price;
+                                            $price = number_format($ap->product_price - $discount);
+                                        } else {
+                                            $price = number_format($ap->product_price);
+                                        }
+                                    ?>
+                            <span>Rp. <?= $price ?></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php } ?>
+
+        </div>
+    </div>
+</div>
+<!-- best__selling__start -->
+
+<!-- fetaure__section__start -->
+<div class="feature__2 feature__3  sp_bottom_80">
+    <div class="container ">
+        <div class="row">
+            <div class="col-xl-12">
+
+                <div class="feature__border">
+                    <div class="feature__2__single feature__3__single">
+
+                        <div class="feature__2__text">
+                            <h4>Free Shipping</h4>
+                            <p>On orders over $99.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature__2__single feature__3__single">
+
+                        <div class="feature__2__text">
+                            <h4>Money Back</h4>
+                            <p>Money back in 15 days..</p>
+                        </div>
+                    </div>
+
+                    <div class="feature__2__single feature__3__single">
+
+                        <div class="feature__2__text">
+                            <h4>Secure Checkout</h4>
+                            <p>100% Payment Secure.</p>
+                        </div>
+                    </div>
+
+                    <div class="feature__2__single feature__3__single">
+
+                        <div class="feature__2__text">
+                            <h4>Online Support</h4>
+                            <p>Ensure the product quality.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- fetaure__section__end -->
+
+
+
 
 <!-- modal__section__start -->
 <div class="grid__quick__view__modal modalarea modal fade" id="exampleModal" tabindex="-1"
