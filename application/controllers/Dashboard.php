@@ -23,4 +23,19 @@ class Dashboard extends CI_Controller {
         ];
         $this->load->view('dashboard/index', $data);
     }
+
+    public function web_settings(){
+        $admin = get_admin();
+        
+        $data = [
+            'title' => 'Pengaturan Web',
+            'view' => 'dashboard/web_settings',
+            'admin' => $admin,
+            'js' => ['web_settings.js'],
+            'data' => $this->db->get('settings')->row(),
+            'payment' => file_get_contents('./assets/payment.json'),
+            'courir' => file_get_contents('./assets/courir.json')
+        ];
+        $this->load->view('dashboard/index', $data);
+    }
 }

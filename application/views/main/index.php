@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/futura-std-4">
     <link rel="stylesheet" href="<?= base_url('assets/main/') ?>css/slick.css">
     <link rel="stylesheet" href="<?= base_url('assets/main/') ?>css/style.css">
-
+    <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
 
 
 
@@ -165,7 +165,7 @@
                                                             fill="none" stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="32" />
                                                     </svg>
-                                                    <span class=" bigcounter">2</span>
+                                                    <span class=" bigcounter"><?= $this->cart->total_items() ?></span>
                                                 </div>
 
                                             </div>
@@ -255,7 +255,7 @@
                                                             fill="none" stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="32" />
                                                     </svg>
-                                                    <span class=" bigcounter">2</span>
+                                                    <span class=" bigcounter"><?= $this->cart->total_items() ?></span>
 
                                                 </div>
 
@@ -347,7 +347,7 @@
                 <div class="setting__wrap__list__inner">
                     <ul>
                         <li>
-                            <a href="<?= base_url('login/logout') ?>">Riwayat Transaksi</a>
+                            <a href="<?= base_url('login/transaction_history') ?>">Riwayat Transaksi</a>
                         </li>
                         <li>
                             <a href="<?= base_url('login/logout') ?>">Logout</a>
@@ -381,66 +381,58 @@
                     <div class="minicart__wrapper">
                         <div class="minicart__close__icon">
                             <div class="minicart__cart__text ">
-                                <strong>Cart</strong>
+                                <strong>Keranjang</strong>
                             </div>
-                            <button class="minicart__close__btn">
+                            <button class="minicart__close__btn" type="button">
                                 <i class="fa fa-close"></i>
                             </button>
 
                         </div>
-
+                        <?php if($user != null){ ?>
+                        <?php if(!empty($this->cart->contents())){ ?>
                         <div class="minicart__single__wraper">
-                            <div class="minicart__single">
 
+                            <?php foreach ($this->cart->contents() as $items){ ?>
+                            <div class="minicart__single">
                                 <div class="minicart__single__img">
-                                    <a href="single-product.html">
-                                        <img src="img/grid/grid__1.png" alt="product">
+                                    <a href="#!">
+                                        <img src="<?= $items['options']['img'] ?>" alt="product">
                                     </a>
                                     <div class="minicart__single__close">
-                                        <button title="Remove"><i class="fa fa-close"></i></button>
+                                        <?= form_open('remove_cart') ?>
+                                        <input type="hidden" name="rowid" value="<?= $items['rowid'] ?>">
+                                        <button title="Remove" type="submit"><i class="fa fa-close"></i></button>
+                                        <?= form_close() ?>
                                     </div>
                                 </div>
                                 <div class="minicart__single__content">
-                                    <h4><a href="single-product.html">E. Casual Comforts T-shirt</a></h4>
-                                    <span>1 x <span class="money">$5,.00 USD</span></span>
-
+                                    <h4><a href="#!"><?= $items['options']['real_name'] ?></a></h4>
+                                    <span><?= $items['qty'] ?> x <span class="money">Rp.
+                                            <?= number_format($items['price']) ?></span></span>
                                 </div>
-
                             </div>
+                            <?php } ?>
 
-                            <div class="minicart__single">
-
-                                <div class="minicart__single__img">
-                                    <a href="single-product.html">
-                                        <img src="img/grid/grid__2.png" alt="product">
-                                    </a>
-                                    <div class="minicart__single__close">
-                                        <button title="Remove"><i class="fa fa-close"></i></button>
-                                    </div>
-                                </div>
-                                <div class="minicart__single__content">
-                                    <h4><a href="single-product.html">M. Denim Clothing Jacket</a></h4>
-                                    <span>1 x <span class="money">$4,.00 USD</span></span>
-
-                                </div>
-
-                            </div>
                         </div>
 
                         <div class="minicart__footer">
                             <div class="minicart__subtotal">
                                 <span class="subtotal__title">Subtotal:</span>
-                                <span class="subtotal__amount">$9.00 USD</span>
+                                <span class="subtotal__amount">Rp.
+                                    <?= number_format($this->cart->total()) ?>
+                                </span>
                             </div>
                             <div class="minicart__button">
-                                <a href="cart.html" class="default__button">View Cart</a>
-                                <a href="checkout.html" class="default__button">Checkout</a>
-                            </div>
-                            <div class="cart__note__text">
-                                <p>Free Shipping on All Orders Over $100!</p>
+                                <a href="<?= base_url('destroy_cart') ?>" class="default__button">Hapus</a>
+                                <a href="<?= base_url('checkout') ?>" class="default__button">Checkout</a>
                             </div>
                         </div>
-
+                        <?php } else { ?>
+                        <div class="minicart__single__wraper">
+                            <p class="text-center">Tidak ada item di sini</p>
+                        </div>
+                        <?php } ?>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -597,9 +589,12 @@
 
 
     <!-- JS here -->
+    <script>
+    const base_url = '<?= base_url() ?>';
+    </script>
     <script src="<?= base_url('assets/main/') ?>js/vendor/modernizr-3.5.0.min.js "></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= base_url('assets/main/') ?>js/popper.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/bootstrap.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/isotope.pkgd.min.js "></script>
@@ -616,6 +611,26 @@
     <script src="<?= base_url('assets/main/') ?>js/fontawesome.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/plugins.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/main.js "></script>
+    <script>
+    function loading_animation() {
+        Swal.fire({
+            title: 'Loading..',
+            html: 'Please wait..',
+            timerProgressBar: true,
+            draggable: true,
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading()
+            },
+        })
+    }
+
+    function regenerate_token(token) {
+        const c_name = '<?= $this->security->get_csrf_token_name() ?>'
+        $('input[name="' + c_name + '"]').val(token)
+    }
+    </script>
+    <script src="<?= base_url('assets/js/homepage.js') ?>"></script>
 
 </body>
 

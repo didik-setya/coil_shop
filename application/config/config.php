@@ -24,7 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/coil_vape/';
-
+$config['rajaongkir_url'] = 'https://api.rajaongkir.com/starter/';
+$config['rajaongkir_key'] = 'Pt2OvtoLe6093964fc15e833FVRj2X8S';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -462,7 +463,10 @@ $config['csrf_token_name'] = 'C_NAME';
 $config['csrf_cookie_name'] = 'C_TOKEN';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array(
+    'show_detail_product',
+    'get_prov'
+);
 
 /*
 |--------------------------------------------------------------------------

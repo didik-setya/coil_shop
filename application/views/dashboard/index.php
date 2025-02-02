@@ -78,7 +78,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url('web_settings') ?>">
                     <i class="fas fa-cogs"></i>
                     <span>Pengaturan Web</span></a>
             </li>

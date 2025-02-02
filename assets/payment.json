@@ -1,0 +1,34 @@
+[
+	{
+		"name": "BCA",
+		"logo": "assets/img/payment/bca.svg"
+	},
+	{
+		"name": "BNI",
+		"logo": "assets/img/payment/bni.svg"
+	},
+	{
+		"name": "BRI",
+		"logo": "assets/img/payment/bri.svg"
+	},
+	{
+		"name": "BTN",
+		"logo": "assets/img/payment/btn.svg"
+	},
+	{
+		"name": "MANDIRI",
+		"logo": "assets/img/payment/mandiri.svg"
+	},
+	{
+		"name": "DANA",
+		"logo": "assets/img/payment/dana.webp"
+	},
+	{
+		"name": "GOPAY",
+		"logo": "assets/img/payment/gopay.png"
+	},
+	{
+		"name": "OVO",
+		"logo": "assets/img/payment/ovo.webp"
+	}
+]

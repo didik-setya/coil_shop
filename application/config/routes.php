@@ -56,15 +56,26 @@ $route['translate_uri_dashes'] = FALSE;
 
 //route page homepage
 $route['register'] = 'login/register';
+$route['checkout'] = 'homepage/checkout';
 
 
-//route page
+//route ajax homepage
+$route['show_detail_product']['POST'] = 'ajax/ajax_homepage/show_product';
+$route['add_to_cart']['POST'] = 'ajax/ajax_homepage/add_cart';
+$route['destroy_cart']['GET'] = 'ajax/ajax_homepage/destroy_cart';
+$route['remove_cart']['POST'] = 'ajax/ajax_homepage/remove_cart';
+$route['get_prov']['POST'] = 'ajax/ajax_homepage/get_api_prov';
+
+
+//route page admin
 $route['product'] = 'dashboard/product';
+$route['web_settings'] = 'dashboard/web_settings';
 
 
 //route product in admin
 $route['verify_product']['POST'] = 'ajax/ajax_product/verify_product';
 $route['action_product']['POST'] = 'ajax/ajax_product/form_action';
-
+//route settings in admin
+$route['change_settings']['POST'] = 'ajax/ajax_settings/update_settings';
 
 $route['verify_login_admin']['POST'] = 'auth/verify_login';

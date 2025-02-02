@@ -11,4 +11,21 @@ class Homepage extends CI_Controller {
         ];
         $this->load->view('main/index', $data);
     }
+
+    public function checkout(){
+        $data_user = get_users();
+        $cart = $this->cart->contents();
+
+        if($data_user && $cart){
+            $data = [
+                'title' => 'RQ Coil Builders',
+                'view' => 'main/checkout',
+                'user' => $data_user,
+                'cart' => $cart
+            ];
+            $this->load->view('main/index', $data);
+        } else {
+            redirect(base_url());
+        }
+    }
 }

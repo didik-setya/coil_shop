@@ -1,0 +1,37 @@
+[
+	{
+		"name": "ANTERAJA",
+		"code": "anteraja",
+		"logo": "assets/img/shipping/anteraja.svg"
+	},
+	{
+		"name": "ID EXPRESS",
+		"code": "idx",
+		"logo": "assets/img/shipping/idexpress.svg"
+	},
+	{
+		"name": "JNE",
+		"code": "jne",
+		"logo": "assets/img/shipping/jne.png"
+	},
+	{
+		"name": "JNT",
+		"code": "jnt",
+		"logo": "assets/img/shipping/jnt.svg"
+	},
+	{
+		"name": "NINJA XPRESS",
+		"code": "ninja",
+		"logo": "assets/img/shipping/ninja.png"
+	},
+	{
+		"name": "POS INDONESIA",
+		"code": "pos",
+		"logo": "assets/img/shipping/pos.png"
+	},
+	{
+		"name": "TIKI",
+		"code": "tiki",
+		"logo": "assets/img/shipping/tiki.png"
+	}
+]

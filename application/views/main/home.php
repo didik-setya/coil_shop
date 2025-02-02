@@ -104,33 +104,35 @@
                 <div class="grid__wraper">
                     <div class="grid__wraper__img">
                         <div class="grid__wraper__img__inner">
-                            <a href="single-product.html">
-                                <img class="primary__image"
-                                    src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
-                                    alt="Primary Image">
-                                <img class="secondary__image"
-                                    src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
-                                    alt="Secondary Image">
-                            </a>
+                            <img class="primary__image"
+                                src="<?= base_url('assets/img/product/' . $ap->product_images) ?>" alt="Primary Image">
+                            <img class="secondary__image"
+                                src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
+                                alt="Secondary Image">
                         </div>
                         <div class="grid__wraper__icon">
                             <ul>
+
                                 <li>
-                                    <span data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <a class="quick__view__action" href="#" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Quick View"
-                                            data-bs-original-title="Quick View">
+                                    <span>
+                                        <button class="btn btn-sm btn-dark"
+                                            onclick="view_product('<?= md5(sha1($ap->id)) ?>')">
                                             <i class="far fa-eye"></i>
-                                        </a>
+                                        </button>
                                     </span>
                                 </li>
 
                                 <li>
-                                    <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Add To Cart"
-                                        data-bs-original-title="Add To Cart">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </a>
+                                    <?= form_open('add_to_cart', 'class="add_to_cart"') ?>
+                                    <input type="hidden" name="product" value="<?= md5(sha1($ap->id)) ?>">
+                                    <button class="btn btn-sm btn-primary" type="submit"><i
+                                            class="fa-solid fa-cart-shopping"></i></button>
+                                    <?= form_close() ?>
+                                    <!-- <a href="<?= base_url('add_cart/') . md5(sha1($ap->id)) ?>">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </a> -->
                                 </li>
+
                             </ul>
                         </div>
 
@@ -211,63 +213,16 @@
 
 
 <!-- modal__section__start -->
-<div class="grid__quick__view__modal modalarea modal fade" id="exampleModal" tabindex="-1"
-    aria-labelledby="exampleModal" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="grid__quick__view__modal modalarea modal" id="modalShowProduct" tabindex="-1" aria-labelledby="exampleModal"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="modal-body">
-                <div class="row align-items-center">
-
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-
-                        <div class="grid__quick__img">
-                            <img src="img/grid/grid__1.png" alt="">
-                        </div>
 
 
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
-                        <div class="grid__quick__content">
-                            <h3>W. Men Formal T-shirt</h3>
-                            <div class="quick__price">
-                                <del>$99.00</del> $120.00
-                            </div>
-                            <p>we denounce with righteous indignation and dislike men who are so beguiled and
-                                demoralized by the charms of pleasure of the moment, so blinded by desire, that
-                                they cannot foresee the pain and trouble that are bound to ensuel...</p>
 
 
-                            <div class="selector__wrapper">
-                                <select class="single-option-selector select--wd" data-option="option1"
-                                    id="product-select-qv-option-0">
-                                    <option value="White">White</option>
-                                    <option value="Gold">Gold</option>
-                                    <option value="l">l</option>
-                                    <option value="Grey">Grey</option>
-                                    <option value="Maroon">Maroon</option>
-                                    <option value="Magenta">Magenta</option>
-                                </select>
-                            </div>
-
-
-                            <div class="featurearea__quantity">
-                                <div class="qty-container">
-                                    <button class="qty-btn-minus btn-qty" type="button"><i
-                                            class="fa fa-minus"></i></button>
-                                    <input type="text" name="qty" value="1" class="input-qty">
-                                    <button class="qty-btn-plus btn-qty" type="button"><i
-                                            class="fa fa-plus"></i></button>
-                                </div>
-                                <a class="default__button" href="#">Add to cart</a>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>

@@ -40,7 +40,8 @@ function get_users(){
         if($user){
             $data = [
                 'name' => $user->nama,
-                'email' => $user->email
+                'email' => $user->email,
+                'id' => md5(sha1($user->id))
             ];
         } else {
            $data = null;
