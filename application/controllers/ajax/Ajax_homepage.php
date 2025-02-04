@@ -124,41 +124,194 @@ class Ajax_homepage extends CI_Controller {
         redirect(base_url());
     }
 
-    public function get_api_prov(){
-        // cek_ajax();
-        // $api_url = $this->config->item('rajaongkir_url');
-        // $api_key = $this->config->item('rajaongkir_key');
+    public function cost_courir(){
+        cek_ajax();
+        $courir= htmlspecialchars($this->input->post('courir'));
+        $zipcode= htmlspecialchars($this->input->post('zipcode'));
+        $weight= htmlspecialchars($this->input->post('weight'));
 
-        // $url = $api_url.'province';
-        // $curl = curl_init();
+        if($courir && $zipcode && $weight){
+            $settings = $this->db->get_where('settings', ['id' => 1])->row();
+            $main_point = json_decode($settings->shipping_point);
+            $zip_point = $main_point->zip_code;
+            $this->api->calculate_courir_cost($zip_point, $zipcode, $weight, $courir);
+        } else {
+            $msg = [
+                'status' => false,
+                'msg' => 'Invalid parameters'
+            ];
+            json_output($msg);
+        }
+    }
 
-        
-        // curl_setopt_array($curl, array(
-        // CURLOPT_URL => 'https://rajaongkir.komerce.id/api/v1/destination/domestic-destination',
-        // CURLOPT_RETURNTRANSFER => true,
-        // CURLOPT_ENCODING => "",
-        // CURLOPT_CUSTOMREQUEST => "GET",
-        // CURLOPT_HTTPHEADER => array(
-        //     "key: " . $api_key
-        // ),
-        // ));
+    public function validation_checkout(){
+        cek_ajax();
+        $this->form_validation->set_rules('full_name', 'Nama Lengkap', 'required|trim|min_length[3]');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('telp', 'No. Telp', 'required|trim|min_length[9]|numeric');
 
-        // $response = curl_exec($curl);
-        // $err = curl_error($curl);
+        $this->form_validation->set_message('required', '{field} harap di isi');
+        $this->form_validation->set_message('valid_email', '{field} harus valid email');
+        $this->form_validation->set_message('min_length', '{field} min {param} digit');
+        $this->form_validation->set_message('numeric', '{field} harus angka');
 
-        // curl_close($curl);
+        if($this->form_validation->run() == false){
+            $output = [
+                'type' => 'validation',
+                'err_name' => form_error('name'),
+                'err_email' => form_error('email'),
+                'err_telp' => form_error('telp'),
+                'token' => $this->security->get_csrf_hash()
+            ];
+            json_output($output, 200);
+        } else {
+            $get_user = get_users();
+            if($get_user){
+                $zipcode = $this->input->post('zipcode');
+                $courier = $this->input->post('courir');
+                $service_courier = $this->input->post('service_courier');
+                $cost_courier = $this->input->post('cost_courier');
 
-        // // if ($err) {
-        // // echo "cURL Error #:" . $err;
-        // // } else {
-        // // echo $response;
-        // // }
+                if($zipcode && $courier && $service_courier && $cost_courier){
+                    $this->_checkout();
+                } else {
+                    $output = [
+                        'type' => 'result',
+                        'status' => false,
+                        'msg' => 'Data is invalid',
+                        'token' => $this->security->get_csrf_hash()
+                    ];
+                    json_output($output, 200);
+                }
 
-        // var_dump($response);
+
+            } else {
+                //logout
+                $output = [
+                    'type' => 'result',
+                    'status' => false,
+                    'msg' => 'please login',
+                    'redirect' => base_url('login/logout'),
+                    'token' => $this->security->get_csrf_hash()
+                ];
+                json_output($output, 200);
+            }
+
+
+        }
 
     }
 
-    public function get_api_city(){
+    private function _checkout(){
+        $data_user = get_users();
+        $name = htmlspecialchars($this->input->post('full_name'));
+        $email = htmlspecialchars($this->input->post('email'));
+        $telp = htmlspecialchars($this->input->post('telp'));
+
+        $province = htmlspecialchars($this->input->post('province'));
+        $city = htmlspecialchars($this->input->post('city'));
+        $distric = htmlspecialchars($this->input->post('distric'));
+        $sub_distric = htmlspecialchars($this->input->post('subdistric'));
+        $zipcode = htmlspecialchars($this->input->post('zipcode'));
+        $address = htmlspecialchars($this->input->post('address'));
+        $notes = htmlspecialchars($this->input->post('notes'));
+
+        $courier = htmlspecialchars($this->input->post('courir'));
+        $service_courier = htmlspecialchars($this->input->post('service_courier'));
+        $cost_courier = htmlspecialchars($this->input->post('cost_courier'));
+        $payment = htmlspecialchars($this->input->post('payment'));
+
+        $main_id = time();
+        $cart = $this->cart->contents();
+        $total_weight = 0;
+        $total_product = $this->cart->total();
+        $total_items = $this->cart->total_items();
+        
+        $sub_checkout = [];
+        foreach($cart as $ct){
+            $total_weight += $ct['options']['weight'];
+            $row = [
+                'id_checkout' => $main_id,
+                'id_product' => $ct['id'],
+                'qty'=>$ct['qty'],
+                'price' => $ct['price'],
+                'subtotal' => $ct['subtotal'],
+                'create_at' => date('Y-m-d H:i:s'),
+                'last_update' => date('Y-m-d H:i:s')
+            ];
+            $sub_checkout[] = $row;
+        }
+        
+        $check_courier = $this->api->check_courier_cost($zipcode, $total_weight, $courier, $service_courier);
+        $courier_cost = $check_courier['cost'];
+        $total_all = $courier_cost + $total_product;
+
+
+        $to = [
+            'name' => $name,
+            'email' => $email,
+            'phone' => $telp,
+            'address' => $address,
+            'province' => $province,
+            'city' => $city,
+            'distric' => $distric,
+            'subdistric' => $sub_distric,
+            'zipcode' => $zipcode,
+            'notes' => $notes 
+        ];
+        
+        $data_courier = [
+            'code' => $check_courier['code'],
+            'name' => $check_courier['name'],
+            'service' => $check_courier['service'],
+            'cost' => $check_courier['cost'],
+        ];
+
+        $data_checkout=[
+            'id' => $main_id,
+            'receipt_payment' => 'ORD'.time(),
+            'id_user' => $data_user['decode_id'],
+            'to' => json_encode($to),
+            'courier' => json_encode($data_courier),
+            'receipt_courier' => '',
+            'proof_transaction' => '',
+            'total_items' => $total_items,
+            'total_weight' => $total_weight,
+            'total_all' => $total_all,
+            'payment' => $payment,
+            'status' => 2,
+            'create_at' => date('Y-m-d H:i:s'),
+            'last_update' => date('Y-m-d H:i:s'),
+        ];
+
+
+        $this->db->trans_begin();
+        $this->db->insert('checkout', $data_checkout);
+        $this->db->insert_batch('sub_checkout', $sub_checkout);
+
+        if ($this->db->trans_status() === FALSE)
+        {
+            $this->db->trans_rollback();
+            $output = [
+                'type' => 'result',
+                'status' => false,
+                'msg' => 'Order gagal, harap coba kembali',
+                'token' => $this->security->get_csrf_hash()
+            ];
+        }
+        else
+        {
+            $this->db->trans_commit();
+            $this->cart->destroy();
+            $output = [
+                'type' => 'result',
+                'status' => true,
+                'msg' => 'Order berhasil, harap lakukan pembayaran',
+                'redirect' => base_url('order/') . md5($main_id),
+                'token' => $this->security->get_csrf_hash()
+            ];
+        }
+        json_output($output, 200);
 
     }
 }

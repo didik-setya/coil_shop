@@ -6,69 +6,119 @@
     </div>
 
 
+    <?= form_open('validation_checkout', 'id="form_checkout"') ?>
     <div class="row">
         <div class="col-md-12 col-lg-6">
             <div class="form-group my-2">
                 <label for="name">Nama Lengkap *</label>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Nama Lengkap">
+                <input type="text" id="name" name="full_name" class="form-control" placeholder="Nama Lengkap"
+                    value="<?= $user['name'] ?>">
+                <small class="text-danger" id="err_name"></small>
             </div>
 
             <div class="form-group my-2">
                 <label for="email">Email *</label>
-                <input type="text" id="email" email="email" class="form-control" placeholder="Email">
+                <input type="text" id="email" name="email" class="form-control" placeholder="Email"
+                    value="<?= $user['email'] ?>">
+                <small class="text-danger" id="err_email"></small>
             </div>
 
             <div class="form-group my-2">
                 <label for="no_telp">No. Telp *</label>
                 <input type="text" id="no_telp" name="telp" class="form-control" placeholder="No. Telp">
+                <small class="text-danger" id="err_telp"></small>
             </div>
 
 
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group my-2">
-                        <label for="prov">Provinsi</label>
-                        <select class="form-control" id="prov" name="prov">
-                            <option value="">--pilih--</option>
+                        <label for="province">Provinsi</label>
+                        <select class="form-control" id="province" name="province" required>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group my-2">
-                        <label for="kab">Kabupaten</label>
-                        <select class="form-control" id="kab" name="kab">
-                            <option value="">--pilih--</option>
+                        <label for="city">Kabupaten</label>
+                        <select class="form-control" id="city" name="city" required>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group my-2">
-                        <label for="kec">Kecamatan</label>
-                        <select class="form-control" id="kec" name="kec">
-                            <option value="">--pilih--</option>
+                        <label for="distric">Kecamatan</label>
+                        <select class="form-control" id="distric" name="distric" required>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group my-2">
-                        <label for="pos">Kode Pos</label>
-                        <input type="text" name="pos" id="pos" class="form-control" placeholder="Kode Pos">
+                        <label for="subdistric">Desa</label>
+                        <select class="form-control" id="subdistric" name="subdistric" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group my-2">
+                        <label for="zipcode">Kode Pos</label>
+
+                        <input type="hidden" name="hidden_city" id="hidden_city" class="form-control">
+                        <input type="hidden" name="hidden_distric" id="hidden_distric" class="form-control">
+                        <select name="zipcode" id="zipcode" class="form-control" required></select>
                     </div>
                 </div>
             </div>
 
             <div class="form-group my-2">
                 <label for="address">Alamat Lengkap</label>
-                <textarea class="form-control" name="address" id="address" rows="3"></textarea>
+                <textarea class="form-control" name="address" id="address" rows="3" required></textarea>
             </div>
 
             <div class="form-group my-2">
                 <label for="notes">Catatan</label>
                 <textarea class="form-control" name="notes" id="notes" rows="3"></textarea>
             </div>
+
+            <div class="row">
+
+                <div class="col-12">
+                    <label for="courir">Kurir</label>
+                    <div class="form-group my-2">
+                        <select class="form-control" id="courir" name="courir" required>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group my-2">
+                        <label for="sub_courir">Layanan Kurir</label>
+                        <select name="sub_courir" id="sub_courir" class="form-control">
+                        </select>
+                    </div>
+
+
+                    <div id="select_courier" class="d-none">
+                        <option value="">--pilih--</option>
+                        <?php 
+                                $decode_courir = json_decode($courir);
+                                $selected_courir = json_decode($settings->shipping);
+                                foreach($selected_courir as $sc){
+                                foreach($decode_courir as $dc){
+                                if($sc->code == $dc->code){
+                                    echo '<option value="'.$dc->code.'">'.$dc->name.'</option>';
+                                }
+                            }
+                        }
+                        ?>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
         <div class="col-md-12 col-lg-6">
-            <table class="table table-sm table-bordered">
+            <table class="table table-sm table-bordered mt-3">
                 <thead>
                     <tr>
                         <th>Produk</th>
@@ -76,7 +126,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($cart as $c){ ?>
+                    <?php
+                    $weight = 0;
+                    foreach($cart as $c){ 
+                        $weight += $c['options']['weight'] * $c['qty'];    
+                    ?>
                     <tr>
                         <td>
                             <div class="row align-items-center">
@@ -95,12 +149,53 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Total</th>
-                        <th>Rp. <?= number_format($this->cart->total()) ?></th>
+                        <th>Total Produk</th>
+                        <th>Rp. <?= number_format($this->cart->total()) ?><input type="hidden" name="total_product"
+                                id="total_product" value="<?= $this->cart->total() ?>"></th>
+                    </tr>
+                    <tr>
+                        <th>Ongkos Kirim</th>
+                        <th id="show_ongkir"></th>
+                    </tr>
+                    <tr>
+                        <th>Total Keseluruhan</th>
+                        <th id="show_total_all">
+                            <input type="hidden" name="total_all" id="total_all">
+                        </th>
                     </tr>
                 </tfoot>
             </table>
-        </div>
+            <input type="hidden" name="weight" id="weight" value="<?= $weight ?>">
+            <input type="hidden" name="cost_courier" id="cost_courier">
+            <input type="hidden" name="service_courier" id="service_courier">
 
+            <div class="form-group my-2">
+                <label for="payment">Pembayaran</label>
+                <select name="payment" id="payment" class="form-control" required>
+                    <option value="">--pilih--</option>
+                    <?php 
+                    $data_payment = json_decode($settings->payment_account);
+                    $decode_payement = json_decode($payment);
+
+                    foreach($data_payment as $dp){
+                        foreach($decode_payement as $jp){
+                            if($dp->name == $jp->name){
+                                echo '<option value="'.$dp->name.'">'.$dp->name.'</option>';
+                            }
+                        }
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div class="text-center py-4">
+                <button class="btn btn-sm btn-primary" type="submit">Buat Pesanan</button>
+            </div>
+
+
+
+
+        </div>
     </div>
+    <?= form_close() ?>
 </div>

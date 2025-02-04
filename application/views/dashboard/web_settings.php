@@ -275,13 +275,59 @@
                             <td><?= $dp ?></td>
                             <?php } ?>
                             <td>
-                                <button class="btn btn-sm btn-primary" type="button"><i
+                                <button class="btn btn-sm btn-primary" type="button" onclick="edit_shipping_point()"><i
                                         class="fas fa-edit"></i></button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalPoint" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-light">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Titik Poin</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?= form_open('change_settings', 'class="form_settings"') ?>
+            <input type="hidden" name="action" value="point">
+            <div class="modal-body">
+                <div class="form-group mb-3">
+                    <label><b>Provinsi</b></label>
+                    <select name="province" id="province" class="form-control" required></select>
+                </div>
+                <div class="form-group mb-3">
+                    <label><b>Kabupaten</b></label>
+                    <select name="city" id="city" class="form-control" required></select>
+                </div>
+                <div class="form-group mb-3">
+                    <label><b>Kecamatan</b></label>
+                    <select name="distric" id="distric" class="form-control" required></select>
+                </div>
+                <div class="form-group mb-3">
+                    <label><b>Desa</b></label>
+                    <select name="subdistric" id="subdistric" class="form-control" required></select>
+                </div>
+                <div class="form-group mb-3">
+                    <label><b>Kode Pos</b></label>
+                    <input type="hidden" name="hidden_city" value="" id="hidden_city">
+                    <input type="hidden" name="hidden_distric" value="" id="hidden_distric">
+                    <select name="zipcode" id="zipcode" class="form-control" required></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+            <?= form_close() ?>
         </div>
     </div>
 </div>

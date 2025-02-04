@@ -72,6 +72,24 @@ class Ajax_settings extends CI_Controller {
                 $data = ['shipping' => $encode_data];
                 $this->_update_settings(1, $data);
                 break;
+            case 'point':
+                $province = $this->input->post('province');
+                $city = $this->input->post('city');
+                $distric = $this->input->post('distric');
+                $subdistric = $this->input->post('subdistric');
+                $zipcode = $this->input->post('zipcode');
+
+                $data = [
+                    'province' => htmlspecialchars($province),
+                    'city' => htmlspecialchars($city),
+                    'distric' => htmlspecialchars($distric),
+                    'subdistric' => htmlspecialchars($subdistric),
+                    'zip_code' => htmlspecialchars($zipcode)
+                ];
+                $encode_data = json_encode($data);
+                $update_data = ['shipping_point' => $encode_data];
+                $this->_update_settings(1, $update_data);
+                break;
         }
         
     }

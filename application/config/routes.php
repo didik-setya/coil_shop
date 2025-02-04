@@ -57,6 +57,7 @@ $route['translate_uri_dashes'] = FALSE;
 //route page homepage
 $route['register'] = 'login/register';
 $route['checkout'] = 'homepage/checkout';
+$route['transaction_history'] = 'homepage/history';
 
 
 //route ajax homepage
@@ -65,6 +66,8 @@ $route['add_to_cart']['POST'] = 'ajax/ajax_homepage/add_cart';
 $route['destroy_cart']['GET'] = 'ajax/ajax_homepage/destroy_cart';
 $route['remove_cart']['POST'] = 'ajax/ajax_homepage/remove_cart';
 $route['get_prov']['POST'] = 'ajax/ajax_homepage/get_api_prov';
+$route['calculate_courir_cost']['POST'] = 'ajax/ajax_homepage/cost_courir';
+$route['validation_checkout']['POST'] = 'ajax/ajax_homepage/validation_checkout';
 
 
 //route page admin

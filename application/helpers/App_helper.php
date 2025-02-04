@@ -41,7 +41,8 @@ function get_users(){
             $data = [
                 'name' => $user->nama,
                 'email' => $user->email,
-                'id' => md5(sha1($user->id))
+                'id' => md5(sha1($user->id)),
+                'decode_id' => $user->id
             ];
         } else {
            $data = null;
@@ -50,4 +51,13 @@ function get_users(){
         $data = null;
     }
     return $data;
+}
+
+function json_output($output, $status){
+    $ci = get_instance();
+    
+    $ci->output
+    ->set_status_header($status)
+    ->set_content_type('application/json')
+    ->set_output(json_encode($output));
 }

@@ -465,7 +465,8 @@ $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array(
     'show_detail_product',
-    'get_prov'
+    'get_prov',
+    'calculate_courir_cost'
 );
 
 /*

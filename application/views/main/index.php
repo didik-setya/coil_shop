@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/img/web/logo.png') ?>">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -99,7 +99,8 @@
                     <div class="row common__row position-relative">
                         <div class="col-xl-2 col-lg-2 col-md-6">
                             <div class="headerarea__logo">
-                                <a href="#"><img src="img/logo/logo__dark.png" alt=""></a>
+                                <a href="<?= base_url() ?>"><img src="<?= base_url('assets/img/web/logo50.png') ?>"
+                                        alt="logo"></a>
                             </div>
                         </div>
 
@@ -204,8 +205,9 @@
                         </div>
                     </div>
                     <div class="col-sm-4 col-5">
-                        <div class="mobile-logo">
-                            <a class="logo__mobile" href="#"><img src="img/logo/logo__dark.png" alt="logo"></a>
+                        <div class="mobile-logo text-center">
+                            <a class="logo__mobile" href="<?= base_url() ?>"><img style="width: 100px;"
+                                    src="<?= base_url('assets/img/web/logo100.png') ?>" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-sm-4 col-5">
@@ -280,9 +282,9 @@
                 <a class="mobile-aside-close"><i class="fa fa-close"></i></a>
                 <div class="header-mobile-aside-wrap">
 
-                    <div class="mobile__logo">
-                        <a href="index.html">
-                            <img src="img/logo/logo__dark.png" alt="Logo">
+                    <div class="mobile__logo text-center">
+                        <a href="<?= base_url() ?>">
+                            <img src="<?= base_url('assets/img/web/logo30.png') ?>" alt="Logo">
                         </a>
                     </div>
 
@@ -347,7 +349,7 @@
                 <div class="setting__wrap__list__inner">
                     <ul>
                         <li>
-                            <a href="<?= base_url('login/transaction_history') ?>">Riwayat Transaksi</a>
+                            <a href="<?= base_url('transaction_history') ?>">Riwayat Transaksi</a>
                         </li>
                         <li>
                             <a href="<?= base_url('login/logout') ?>">Logout</a>
