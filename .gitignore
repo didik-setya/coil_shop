@@ -34,4 +34,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 assets/img/product/*
 assets/img/user/*
 !assets/img/user/default.webp
-assets/img/proof_transaction/*
+assets/img/transaction/*
