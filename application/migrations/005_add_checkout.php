@@ -44,8 +44,7 @@ class Migration_add_checkout extends CI_Migration {
                             'constraint' => '11',
                     ),
                     'payment' => array(
-                            'type' => 'VARCHAR',
-                            'constraint' => '20',
+                            'type' => 'TEXT',
                     ),
                     'status' => array(
                             'type' => 'VARCHAR',

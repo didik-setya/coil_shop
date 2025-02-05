@@ -468,3 +468,50 @@ $("#form_checkout").submit(function (e) {
 		},
 	});
 });
+
+$(".form_payment").submit(function (e) {
+	e.preventDefault();
+	loading_animation();
+	$.ajax({
+		url: $(this).attr("action"),
+		data: new FormData(this),
+		type: "POST",
+		dataType: "JSON",
+		contentType: false,
+		processData: false,
+		error: function (xhr, status, error) {
+			setTimeout(() => {
+				Swal.close();
+				Swal.fire({
+					icon: "error",
+					title: "Error",
+					text: error,
+				}).then((res) => {
+					window.location.reload();
+				});
+			}, 200);
+		},
+		success: function (d) {
+			setTimeout(() => {
+				regenerate_token(d.token);
+				Swal.close();
+
+				if (d.status == false) {
+					Swal.fire({
+						icon: "error",
+						title: "Error",
+						text: d.msg,
+					});
+				} else {
+					Swal.fire({
+						icon: "success",
+						title: "Success",
+						text: d.msg,
+					}).then((res) => {
+						window.location.reload();
+					});
+				}
+			}, 200);
+		},
+	});
+});

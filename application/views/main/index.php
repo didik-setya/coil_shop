@@ -99,8 +99,8 @@
                     <div class="row common__row position-relative">
                         <div class="col-xl-2 col-lg-2 col-md-6">
                             <div class="headerarea__logo">
-                                <a href="<?= base_url() ?>"><img src="<?= base_url('assets/img/web/logo50.png') ?>"
-                                        alt="logo"></a>
+                                <a href="<?= base_url() ?>"><img src="<?= base_url('assets/img/web/new_logo.png') ?>"
+                                        alt="logo" width="100px"></a>
                             </div>
                         </div>
 
@@ -207,7 +207,7 @@
                     <div class="col-sm-4 col-5">
                         <div class="mobile-logo text-center">
                             <a class="logo__mobile" href="<?= base_url() ?>"><img style="width: 100px;"
-                                    src="<?= base_url('assets/img/web/logo100.png') ?>" alt="logo"></a>
+                                    src="<?= base_url('assets/img/web/new_logo.png') ?>" alt="logo"></a>
                         </div>
                     </div>
                     <div class="col-sm-4 col-5">
@@ -284,7 +284,7 @@
 
                     <div class="mobile__logo text-center">
                         <a href="<?= base_url() ?>">
-                            <img src="<?= base_url('assets/img/web/logo30.png') ?>" alt="Logo">
+                            <img src="<?= base_url('assets/img/web/new_logo.png') ?>" alt="Logo" width="80px">
                         </a>
                     </div>
 

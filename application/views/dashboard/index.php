@@ -60,21 +60,15 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url('users') ?>">
                     <i class="fas fa-users"></i>
                     <span>User</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url('transaction') ?>">
                     <i class="far fa-money-bill-alt"></i>
                     <span>Transaksi</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Laporan</span></a>
             </li>
 
             <li class="nav-item">
@@ -83,7 +77,7 @@
                     <span>Pengaturan Web</span></a>
             </li>
 
-            <div id="version-ruangadmin" class="text-center"></div>
+            <div id="version-ruangadmin" class="text-center d-none"></div>
 
         </ul>
         <!-- Sidebar -->

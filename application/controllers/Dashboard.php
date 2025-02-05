@@ -38,4 +38,16 @@ class Dashboard extends CI_Controller {
         ];
         $this->load->view('dashboard/index', $data);
     }
+
+    public function transaction(){
+        $admin = get_admin();
+        
+        $data = [
+            'title' => 'Transaksi',
+            'view' => 'dashboard/transaction',
+            'admin' => $admin,
+            'js' => ['transaction.js']
+        ];
+        $this->load->view('dashboard/index', $data);
+    }
 }

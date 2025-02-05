@@ -466,7 +466,9 @@ $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array(
     'show_detail_product',
     'get_prov',
-    'calculate_courir_cost'
+    'calculate_courir_cost',
+    'load_data_transaction',
+    'detail_checkout'
 );
 
 /*

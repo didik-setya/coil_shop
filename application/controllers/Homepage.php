@@ -37,6 +37,17 @@ class Homepage extends CI_Controller {
     }
 
     public function history(){
-        
+        $data_user = get_users();
+        if($data_user){
+            $data = [
+                'title' => 'Riwayat Transaksi',
+                'view' => 'main/transaction_history',
+                'user' => $data_user,
+                'data'=> $this->checkout->get_history_for_user()
+            ];
+            $this->load->view('main/index', $data);
+        } else {
+            redirect(base_url());
+        }
     }
 }

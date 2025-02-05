@@ -204,6 +204,9 @@ class Ajax_homepage extends CI_Controller {
 
     private function _checkout(){
         $data_user = get_users();
+        $settings_payment = $this->db->get_where('settings', ['id' => 1])->row()->payment_account;
+        $decode_payment = json_decode($settings_payment);
+
         $name = htmlspecialchars($this->input->post('full_name'));
         $email = htmlspecialchars($this->input->post('email'));
         $telp = htmlspecialchars($this->input->post('telp'));
@@ -228,6 +231,7 @@ class Ajax_homepage extends CI_Controller {
         $total_items = $this->cart->total_items();
         
         $sub_checkout = [];
+        $data_payment = [];
         foreach($cart as $ct){
             $total_weight += $ct['options']['weight'];
             $row = [
@@ -241,6 +245,16 @@ class Ajax_homepage extends CI_Controller {
             ];
             $sub_checkout[] = $row;
         }
+
+        foreach($decode_payment as $sp){
+            if($sp->name == $payment){
+                $data_payment = [
+                    'name' => $sp->name,
+                    'value' => $sp->value
+                ];
+            }
+        }
+
         
         $check_courier = $this->api->check_courier_cost($zipcode, $total_weight, $courier, $service_courier);
         $courier_cost = $check_courier['cost'];
@@ -278,12 +292,12 @@ class Ajax_homepage extends CI_Controller {
             'total_items' => $total_items,
             'total_weight' => $total_weight,
             'total_all' => $total_all,
-            'payment' => $payment,
+            'payment' => json_encode($data_payment),
             'status' => 2,
             'create_at' => date('Y-m-d H:i:s'),
             'last_update' => date('Y-m-d H:i:s'),
         ];
-
+        
 
         $this->db->trans_begin();
         $this->db->insert('checkout', $data_checkout);
@@ -307,11 +321,136 @@ class Ajax_homepage extends CI_Controller {
                 'type' => 'result',
                 'status' => true,
                 'msg' => 'Order berhasil, harap lakukan pembayaran',
-                'redirect' => base_url('order/') . md5($main_id),
+                'redirect' => base_url('transaction_history'),
                 'token' => $this->security->get_csrf_hash()
             ];
         }
         json_output($output, 200);
 
+    }
+
+    public function proof_payment(){
+        cek_ajax();
+        $action = $this->input->post('action');
+        $id = htmlspecialchars($this->input->post('id'));
+        $get_checkout = $this->db->where('md5(id)', $id)->get('checkout')->row();
+        if($get_checkout){
+            switch($action){
+                case 'add':
+                    $img = $_FILES['proof_transaction']['name'];
+                    if($img){
+                        $config['upload_path']          = './assets/img/transaction/';
+                        $config['allowed_types']        = 'jpeg|jpg|png|gif|svg';
+                        $config['file_name']            = 'py_'.time();
+        
+                        $this->load->library('upload', $config);
+
+                        if($this->upload->do_upload('proof_transaction')){
+                            $file = $this->upload->data('file_name');
+                        } else {
+                            $output = [
+                                'status' => false,
+                                'token' => $this->security->get_csrf_hash(),
+                                'msg' => $this->upload->display_errors()
+                            ];
+                            echo json_encode($output);
+                            die;
+                        }
+
+                        $update = [
+                            'proof_transaction' => $file,
+                            'status' => 3
+                        ];
+                        $this->db->where('id', $get_checkout->id)->update('checkout', $update);
+                        if($this->db->affected_rows() > 0){
+                            $output = [
+                                'status' => true,
+                                'token' => $this->security->get_csrf_hash(),
+                                'msg' => 'Bukti pembayaran berhasil di kirim'
+                            ];
+                        } else {
+                            $output = [
+                                'status' => false,
+                                'token' => $this->security->get_csrf_hash(),
+                                'msg' => 'Bukti pembayaran gagal di kirim'
+                            ];
+                        }
+                    } else {
+                        $output = [
+                            'status' => false,
+                            'token' => $this->security->get_csrf_hash(),
+                            'msg' => 'Invalid input'
+                        ];
+                    }
+                    json_output($output, 200);
+                    break;
+                case 'edit':
+                    $img = $_FILES['proof_transaction']['name'];
+                    if($img){
+                        $config['upload_path']          = './assets/img/transaction/';
+                        $config['allowed_types']        = 'jpeg|jpg|png|gif|svg';
+                        $config['file_name']            = 'py_'.time();
+        
+                        $this->load->library('upload', $config);
+
+                        if($this->upload->do_upload('proof_transaction')){
+                            unlink(FCPATH .'assets/img/transaction/'. $get_checkout->proof_transaction);
+                            $file = $this->upload->data('file_name');
+                        } else {
+                            $output = [
+                                'status' => false,
+                                'token' => $this->security->get_csrf_hash(),
+                                'msg' => $this->upload->display_errors()
+                            ];
+                            echo json_encode($output);
+                            die;
+                        }
+
+                        $update = [
+                            'proof_transaction' => $file,
+                            'status' => 3
+                        ];
+                        $this->db->where('id', $get_checkout->id)->update('checkout', $update);
+                        if($this->db->affected_rows() > 0){
+                            $output = [
+                                'status' => true,
+                                'token' => $this->security->get_csrf_hash(),
+                                'msg' => 'Bukti pembayaran berhasil di update'
+                            ];
+                        } else {
+                            $output = [
+                                'status' => false,
+                                'token' => $this->security->get_csrf_hash(),
+                                'msg' => 'Bukti pembayaran gagal di update'
+                            ];
+                        }
+                    } else {
+                        $output = [
+                            'status' => false,
+                            'token' => $this->security->get_csrf_hash(),
+                            'msg' => 'Invalid input'
+                        ];
+                    }
+                    json_output($output, 200);
+                    break;
+                default:
+                    $output = [
+                        'status' => false,
+                        'token' => $this->security->get_csrf_hash(),
+                        'msg' => 'unknow action'
+                    ];
+                    echo json_encode($output);
+                    die;
+                break;
+            }
+        } else {
+            $output = [
+                'status' => false,
+                'token' => $this->security->get_csrf_hash(),
+                'msg' => 'action not found'
+            ];
+            json_output($output, 200);
+        }
+        
     }
 }

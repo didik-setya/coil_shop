@@ -68,11 +68,14 @@ $route['remove_cart']['POST'] = 'ajax/ajax_homepage/remove_cart';
 $route['get_prov']['POST'] = 'ajax/ajax_homepage/get_api_prov';
 $route['calculate_courir_cost']['POST'] = 'ajax/ajax_homepage/cost_courir';
 $route['validation_checkout']['POST'] = 'ajax/ajax_homepage/validation_checkout';
+$route['send_proof_payment']['POST'] = 'ajax/ajax_homepage/proof_payment';
 
 
 //route page admin
 $route['product'] = 'dashboard/product';
 $route['web_settings'] = 'dashboard/web_settings';
+$route['transaction'] = 'dashboard/transaction';
+$route['users'] = 'dashboard/users';
 
 
 //route product in admin
@@ -80,5 +83,9 @@ $route['verify_product']['POST'] = 'ajax/ajax_product/verify_product';
 $route['action_product']['POST'] = 'ajax/ajax_product/form_action';
 //route settings in admin
 $route['change_settings']['POST'] = 'ajax/ajax_settings/update_settings';
+//route transaction in admin
+$route['load_data_transaction']['POST'] = 'ajax/ajax_transaction/load_data';
+$route['edit_status_checkout']['POST'] = 'ajax/ajax_transaction/edit_status';
+$route['detail_checkout']['POST'] = 'ajax/ajax_transaction/detail_checkout';
 
 $route['verify_login_admin']['POST'] = 'auth/verify_login';
