@@ -42,6 +42,7 @@ class Ajax_transaction extends CI_Controller {
                 $img = '<img src="'.base_url('assets/img/transaction/') . $gd->proof_transaction.'" class="img_transaction" alt="img_payment" width="70%">';
             }
 
+            $row[] = $gd->receipt_payment;
             $row[] = date_format($c_date, 'd/m/Y H:i');
             $row[] = $gd->nama.' ('.$gd->email.')';
             $row[] = 'Rp. '.number_format($gd->total_all);

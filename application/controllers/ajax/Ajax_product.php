@@ -8,7 +8,6 @@ class Ajax_product extends CI_Controller {
 
         $this->form_validation->set_rules('name', 'Nama Produk', 'required|trim|min_length[3]');
         $this->form_validation->set_rules('price', 'Harga Produk', 'required|trim|numeric');
-        $this->form_validation->set_rules('stock', 'Stok Produk', 'required|trim|numeric');
         $this->form_validation->set_rules('discount', 'Diskon', 'required|trim|numeric|max_length[2]');
         $this->form_validation->set_rules('berat', 'Berat Produk', 'required|trim|numeric');
 
@@ -23,7 +22,6 @@ class Ajax_product extends CI_Controller {
                 'type' => 'validation',
                 'err_name' => form_error('name'),
                 'err_price' => form_error('price'),
-                'err_stock' => form_error('stock'),
                 'err_discount' => form_error('discount'),
                 'err_berat' => form_error('berat'),
                 'token' => $this->security->get_csrf_hash()
@@ -77,7 +75,7 @@ class Ajax_product extends CI_Controller {
                     'product_desc' => htmlspecialchars($this->input->post('desc')),
                     'product_price' => htmlspecialchars($this->input->post('price')),
                     'product_images' => $images,
-                    'product_stock' =>  htmlspecialchars($this->input->post('stock')),
+                    'product_stock' =>  '',
                     'product_discount' =>  htmlspecialchars($this->input->post('discount')),
                     'product_weight' => htmlspecialchars($this->input->post('berat')),
                     'create_at' => date('Y-m-d H:i:s'),
@@ -147,7 +145,7 @@ class Ajax_product extends CI_Controller {
                         'product_desc' => htmlspecialchars($this->input->post('desc')),
                         'product_price' => htmlspecialchars($this->input->post('price')),
                         'product_images' => $images,
-                        'product_stock' =>  htmlspecialchars($this->input->post('stock')),
+                        'product_stock' =>  '',
                         'product_discount' =>  htmlspecialchars($this->input->post('discount')),
                         'product_weight' => htmlspecialchars($this->input->post('berat')),
                         'last_update' => date('Y-m-d H:i:s')

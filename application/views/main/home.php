@@ -18,7 +18,7 @@
                                         terlupakan</p>
                                 </div>
                                 <div class="herobanner__button herobanner__button__color  animated">
-                                    <a href="#" class="default__button" tabindex="0">Beli Sekarang</a>
+                                    <a href="#all_product" class="default__button" tabindex="0">Beli Sekarang</a>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                                         kaya dan halus.</p>
                                 </div>
                                 <div class="herobanner__button herobanner__button__color  animated">
-                                    <a href="#" class="default__button" tabindex="0">Beli Sekarang</a>
+                                    <a href="#all_product" class="default__button" tabindex="0">Beli Sekarang</a>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                     <p>Coil vape kami mudah disesuaikan untuk memenuhi preferensi vapingmu</p>
                                 </div>
                                 <div class="herobanner__button herobanner__button__color  animated">
-                                    <a href="#" class="default__button" tabindex="0">Beli Sekarang</a>
+                                    <a href="#all_product" class="default__button" tabindex="0">Beli Sekarang</a>
                                 </div>
                             </div>
                         </div>
@@ -86,13 +86,13 @@
 
 
 <!-- best__selling__start -->
-<div class="best__selling sp_bottom_80 mt-3">
+<div class="best__selling sp_bottom_80 mt-3" id="all_product">
     <div class="container">
 
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                 <div class="section__title">
-                    <h2>All Product</h2>
+                    <h2>Produk Kami</h2>
                 </div>
             </div>
         </div>
@@ -101,16 +101,18 @@
 
             <?php foreach($all_product as $ap){ ?>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
-                <div class="grid__wraper">
-                    <div class="grid__wraper__img">
-                        <div class="grid__wraper__img__inner">
-                            <img class="primary__image"
-                                src="<?= base_url('assets/img/product/' . $ap->product_images) ?>" alt="Primary Image">
-                            <img class="secondary__image"
-                                src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
-                                alt="Secondary Image">
-                        </div>
-                        <div class="grid__wraper__icon">
+                <div style="cursor: pointer;" onclick="view_product('<?= md5(sha1($ap->id)) ?>')">
+                    <div class="grid__wraper">
+                        <div class="grid__wraper__img">
+                            <div class="grid__wraper__img__inner">
+                                <img class="primary__image"
+                                    src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
+                                    alt="Primary Image">
+                                <img class="secondary__image"
+                                    src="<?= base_url('assets/img/product/' . $ap->product_images) ?>"
+                                    alt="Secondary Image">
+                            </div>
+                            <!-- <div class="grid__wraper__icon">
                             <ul>
 
                                 <li>
@@ -128,21 +130,18 @@
                                     <button class="btn btn-sm btn-primary" type="submit"><i
                                             class="fa-solid fa-cart-shopping"></i></button>
                                     <?= form_close() ?>
-                                    <!-- <a href="<?= base_url('add_cart/') . md5(sha1($ap->id)) ?>">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </a> -->
                                 </li>
 
                             </ul>
-                        </div>
+                        </div> -->
 
-                    </div>
-                    <div class="grid__wraper__info">
-                        <h3 class="grid__wraper__tittle">
-                            <a href="single-product.html" tabindex="0"><?= $ap->product_name ?></a>
-                        </h3>
-                        <div class="grid__wraper__price">
-                            <?php
+                        </div>
+                        <div class="grid__wraper__info">
+                            <h3 class="grid__wraper__tittle">
+                                <?= $ap->product_name ?>
+                            </h3>
+                            <div class="grid__wraper__price">
+                                <?php
                                         if($ap->product_discount > 0 || $ap->product_discount != '' || $ap->product_discount != null){
                                             $discount = $ap->product_discount / 100 * $ap->product_price;
                                             $price = number_format($ap->product_price - $discount);
@@ -150,7 +149,8 @@
                                             $price = number_format($ap->product_price);
                                         }
                                     ?>
-                            <span>Rp. <?= $price ?></span>
+                                <span>Rp. <?= $price ?></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,21 +209,35 @@
 </div>
 <!-- fetaure__section__end -->
 
-
-
-
-<!-- modal__section__start -->
-<div class="grid__quick__view__modal modalarea modal" id="modalShowProduct" tabindex="-1" aria-labelledby="exampleModal"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
+<!-- Modal -->
+<div class="modal fade" id="modalShowProduct" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div style="z-index: 10;"
+        class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body">
-
-
-
-
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <div id="content"></div>
+                <?= form_open('add_to_cart', 'class="add_to_cart"') ?>
+                <input type="hidden" name="product" id="product_cart">
+                <div class="row mt-3 align-items-center justify-content-center">
+                    <div class="col-5 col-sm-5 col-md-3 col-lg-3">
+                        <label for="qty_product">Jumlah</label>
+                    </div>
+                    <div class="col-7 col-sm-7 col-md-6 col-lg-6">
+                        <input type="number" name="qty" id="qty_product" class="form-control" required min="1" value="1"
+                            max="100">
+                    </div>
+                    <div class="col-9 col-sm-9 col-md-3 col-lg-3">
+                        <button class="btn btn-sm btn-primary w-100 my-2" type="submit"><i
+                                class="fas fa-cart-plus"></i></button>
+                    </div>
+                </div>
+                <?= form_close() ?>
+            </div>
+
         </div>
     </div>
 </div>

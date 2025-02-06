@@ -6,12 +6,13 @@
                 <table class="table table-sm table-bordered" id="table_main">
                     <thead class="table-dark">
                         <tr>
+                            <th width="10%">No. Nota</th>
                             <th>Waktu</th>
-                            <th>User</th>
+                            <th width="10%">User</th>
                             <th>Total</th>
                             <th>Bukti Pembayaran</th>
                             <th>Status</th>
-                            <th><i class="fa fa-cogs"></i></th>
+                            <th width="5%"><i class="fa fa-cogs"></i></th>
                         </tr>
                     </thead>
                     <tbody>

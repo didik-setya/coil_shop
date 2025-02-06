@@ -122,16 +122,22 @@
                 <thead>
                     <tr>
                         <th>Produk</th>
+                        <th>Jumlah</th>
                         <th>Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $weight = 0;
+                    $order = 1;
+                    $a = 1;
+                    $b = 1;
+                    $c1 = 1;
                     foreach($cart as $c){ 
                         $weight += $c['options']['weight'] * $c['qty'];    
                     ?>
                     <tr>
+                        <input type="hidden" name="rowid[]" value="<?= $c['rowid'] ?>">
                         <td>
                             <div class="row align-items-center">
                                 <div class="col-3">
@@ -139,34 +145,45 @@
                                 </div>
                                 <div class="col-9">
                                     <h6><?= $c['options']['real_name'] ?></h6>
-                                    <small><?= $c['qty'] ?> X Rp. <?= number_format($c['price']) ?></small>
+                                    <small data-price="<?= $c['price'] ?>" id="product_price_<?=$a++?>">Rp.
+                                        <?= number_format($c['price']) ?></small>
                                 </div>
                             </div>
                         </td>
-                        <td>Rp. <?= number_format($c['subtotal']) ?></td>
+                        <td>
+                            <input type="number" name="qty_product[]" id="qty_product" class="form-control qty_product"
+                                value="<?= $c['qty'] ?>" required min="1" max="100" data-ord="<?= $order++ ?>">
+                        </td>
+                        <td id="product_subtotal_<?=$b++?>">
+                            Rp. <?= number_format($c['subtotal']) ?>
+                        </td>
                     </tr>
+                    <input type="hidden" name="product_subtotal" value="<?= $c['subtotal'] ?>"
+                        id="hidden_subtotal_<?=$c1++?>" class="hidden_subtotal">
                     <?php } ?>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th>Total Produk</th>
-                        <th>Rp. <?= number_format($this->cart->total()) ?><input type="hidden" name="total_product"
-                                id="total_product" value="<?= $this->cart->total() ?>"></th>
+                        <th colspan="2">Total Produk</th>
+                        <th id="show_total_product">Rp. <?= number_format($this->cart->total()) ?>
+                        </th>
+                        <input type="hidden" name="total_product" id="total_product"
+                            value="<?= $this->cart->total() ?>">
                     </tr>
                     <tr>
-                        <th>Ongkos Kirim</th>
+                        <th colspan="2">Ongkos Kirim</th>
                         <th id="show_ongkir"></th>
                     </tr>
                     <tr>
-                        <th>Total Keseluruhan</th>
+                        <th colspan="2">Total Keseluruhan</th>
                         <th id="show_total_all">
-                            <input type="hidden" name="total_all" id="total_all">
                         </th>
+                        <input type="hidden" name="total_all" id="total_all">
                     </tr>
                 </tfoot>
             </table>
             <input type="hidden" name="weight" id="weight" value="<?= $weight ?>">
-            <input type="hidden" name="cost_courier" id="cost_courier">
+            <input type="hidden" name="cost_courier" id="cost_courier" value="0">
             <input type="hidden" name="service_courier" id="service_courier">
 
             <div class="form-group my-2">
@@ -191,9 +208,6 @@
             <div class="text-center py-4">
                 <button class="btn btn-sm btn-primary" type="submit">Buat Pesanan</button>
             </div>
-
-
-
 
         </div>
     </div>

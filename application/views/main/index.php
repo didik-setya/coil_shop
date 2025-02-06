@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/futura-std-4">
     <link rel="stylesheet" href="<?= base_url('assets/main/') ?>css/slick.css">
     <link rel="stylesheet" href="<?= base_url('assets/main/') ?>css/style.css">
-    <link rel="stylesheet" href="@sweetalert2/theme-dark/dark.css">
 
 
 
@@ -45,7 +44,7 @@
                                             stroke-width="32" />
                                         <path fill="none" stroke="currentColor" stroke-linecap="round"
                                             stroke-linejoin="round" stroke-width="32" d="M112 160l144 112 144-112" />
-                                    </svg>example@example.com
+                                    </svg>admin@rqbuilder.net
                                 </li>
                                 <li>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
@@ -98,7 +97,7 @@
                 <div class="container desktop__menu__wrapper">
                     <div class="row common__row position-relative">
                         <div class="col-xl-2 col-lg-2 col-md-6">
-                            <div class="headerarea__logo">
+                            <div class="headerarea__logo py-2">
                                 <a href="<?= base_url() ?>"><img src="<?= base_url('assets/img/web/new_logo.png') ?>"
                                         alt="logo" width="100px"></a>
                             </div>
@@ -107,7 +106,7 @@
 
                         <div class="col-xl-7 col-lg-7 col-md-6 main_menu_wrap">
 
-                            <div class="headerarea__main__menu ">
+                            <!-- <div class="headerarea__main__menu ">
                                 <nav>
                                     <ul>
                                         <li><a href="#">Home</a> </li>
@@ -116,7 +115,7 @@
                                         <li><a href="#">About</a> </li>
                                     </ul>
                                 </nav>
-                            </div>
+                            </div> -->
 
                         </div>
 
@@ -191,33 +190,42 @@
 
             <div class="container-fluid mob_menu_wrapper headerarea header__sticky">
                 <div class="row align-items-center">
-                    <div class="col-sm-4 col-2">
+                    <div class="col-sm-4 col-4">
                         <div class="mobile-off-canvas">
                             <a class="mobile-aside-button" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-menu">
-                                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                                </svg>
+                                <div class="setting__wrap cursor__pointer">
+                                    <div class="setting__wrap__active">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+                                            <path
+                                                d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
+                                                fill="none" stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="32" />
+                                            <path
+                                                d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                                fill="none" stroke="currentColor" stroke-miterlimit="10"
+                                                stroke-width="32" />
+                                        </svg>
+
+                                    </div>
+                                </div>
                             </a>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-5">
+                    <div class="col-sm-4 col-4">
                         <div class="mobile-logo text-center">
                             <a class="logo__mobile" href="<?= base_url() ?>"><img style="width: 100px;"
                                     src="<?= base_url('assets/img/web/new_logo.png') ?>" alt="logo"></a>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-5">
+                    <div class="col-sm-4 col-4">
                         <div class="header-right-wrap">
 
 
                             <div class="header__right__inner__wrap d-flex align-items-center justify-content-end">
 
                                 <ul class="headerarea__right headerarea__right__mobail__menu">
-                                    <li>
+                                    <!-- <li>
                                         <div class="setting__wrap cursor__pointer">
                                             <div class="setting__wrap__active">
 
@@ -235,7 +243,7 @@
 
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> -->
 
                                     <li>
                                         <div class="headermiddle__bar cursor__pointer">
@@ -276,44 +284,6 @@
 
                 </div>
             </div>
-
-            <!-- Mobile Menu Start Here -->
-            <div class="mobile-off-canvas-active">
-                <a class="mobile-aside-close"><i class="fa fa-close"></i></a>
-                <div class="header-mobile-aside-wrap">
-
-                    <div class="mobile__logo text-center">
-                        <a href="<?= base_url() ?>">
-                            <img src="<?= base_url('assets/img/web/new_logo.png') ?>" alt="Logo" width="80px">
-                        </a>
-                    </div>
-
-                    <div class="mobile-menu-wrap">
-
-                        <div class="mobile-navigation">
-
-                            <nav>
-                                <ul class="mobile-menu">
-                                    <li><a href="">Home</a></li>
-                                    <li><a href="">New Product</a></li>
-                                    <li><a href="">All Product</a></li>
-                                    <li><a href="">About</a></li>
-                                </ul>
-                            </nav>
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="mobile-social-wrap">
-                        <a class="facebook" href="#"><i class="fab fa-facebook"></i></a>
-                        <a class="instagram" href="#"><i class="fab fa-instagram"></i></a>
-                        <a href=""><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- Mobile Menu end Here -->
 
             <!-- setting__wrap__list__start -->
             <div class="setting__wrap__list">
@@ -444,123 +414,64 @@
         </header>
         <!-- header section end -->
 
-        <?php $this->load->view($view) ?>
+        <?php $this->load->view($view);
+        $settings = $this->db->get_where('settings', ['id' => 1])->row();
+        $privacy = $settings->privacy_policy;
+        $refund = $settings->refund_policy;
+        $contact = json_decode($settings->contact);
+        ?>
 
         <!-- footer__section__start -->
         <div class="footer ">
             <div class="footer__inner sp_top_80">
                 <div class="container sp_bottom_60">
-                    <div class="row">
+                    <div class="row justify-content-center">
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="footer__widget">
-                                <h4 class="footer__title">About Us.</h4>
+                                <h4 class="footer__title">Kebijakan Privasi.</h4>
                                 <div class="footer__content">
-                                    <p>Minimal E-Commerce is a dynamic and innovative online retail platform that offers
-                                        a wide range of products to customers worldwide.</p>
-                                </div>
-                                <div class="footer__social__icon">
-                                    <ul>
-                                        <li><a target="_blank" title="Facebook-f"
-                                                href="https://www.facebook.com/shopify"><i
-                                                    class="fab fa-facebook-f"></i></a></li>
-
-
-                                        <li><a target="_blank" title="Twitter" href="https://twitter.com/shopify"><i
-                                                    class="fab fa-twitter"></i></a></li>
-
-
-
-                                        <li><a target="_blank" title="Youtube"
-                                                href="https://www.youtube.com/user/shopify"><i
-                                                    class="fab fa-youtube"></i></a></li>
-
-
-                                        <li><a target="_blank" title="Instagram"
-                                                href="https://www.instagram.com/shopify/"><i
-                                                    class="fab fa-instagram"></i></a></li>
-
-
-                                        <li><a target="_blank" title="Tiktok" href="https://www.tiktok.com/@shopify"><i
-                                                    class="fab fa-tiktok"></i></a></li>
-
-
-                                    </ul>
-                                </div>
-                                <div class="footer__bottom">
-                                    <h5>Guaranteed safe checkout</h5>
-                                    <div class="footer__img">
-                                        <ul>
-                                            <li>
-                                                <img src="img/footer/footer__1.svg" alt="">
-                                            </li>
-                                            <li>
-                                                <img src="img/footer/footer__2.svg" alt="">
-                                            </li>
-                                            <li>
-                                                <img src="img/footer/footer__3.svg" alt="">
-                                            </li>
-                                            <li>
-                                                <img src="img/footer/footer__4.svg" alt="">
-                                            </li>
-                                            <li>
-                                                <img src="img/footer/footer__5.svg" alt="">
-                                            </li>
-                                            <li>
-                                                <img src="img/footer/footer__6.svg" alt="">
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <p><?=$privacy?></p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="footer__widget">
-                                <h4 class="footer__title">Quick Link</h4>
-                                <div class="footer__menu">
-                                    <ul>
-                                        <li><a href="/account">My Account</a></li>
-                                        <li><a href="/cart">My Cart</a></li>
-                                        <li><a href="/pages/wishlist">Wishlist</a></li>
-                                        <li><a href="/">Gift Card</a></li>
-                                        <li><a href="/pages/contact">Need Help?</a></li>
-                                    </ul>
+                                <h4 class="footer__title">Kebijakan Pengembalian.</h4>
+                                <div class="footer__content">
+                                    <p><?=$refund?></p>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="footer__widget">
-                                <h4 class="footer__title">Information</h4>
-                                <div class="footer__menu">
-                                    <ul>
-                                        <li><a href="/account">About us</a></li>
-                                        <li><a href="/cart">Contact</a></li>
-                                        <li><a href="/pages/wishlist">Blogs</a></li>
-                                        <li><a href="/">Gift Card</a></li>
-                                        <li><a href="/pages/contact">Size Chart</a></li>
-                                    </ul>
+                                <h4 class="footer__title">Tentang Kami.</h4>
+                                <div class="footer__content">
+                                    <p>RQ COIL BUILDERS lahir dari kecintaan kami terhadap dunia vape. Kami percaya
+                                        bahwa coil yang berkualitas adalah kunci dari pengalaman vaping yang memuaskan.
+                                        Dedikasi kami adalah untuk memberikan yang terbaik bagi sesama vaper.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="footer__widget">
-                                <h4 class="footer__title">Policies</h4>
-                                <div class="footer__menu">
-                                    <ul>
-                                        <li><a href="/account">Privacy Policy</a></li>
-                                        <li><a href="/cart">Refund Policy</a></li>
-                                        <li><a href="/pages/wishlist">Terms of Service</a></li>
-                                        <li><a href="/">Gift Card</a></li>
-                                        <li><a href="/pages/contact">Shipping Policy</a></li>
-                                    </ul>
+                                <h4 class="footer__title">Hubungi Kami.</h4>
+                                <div class="footer__content">
+                                    <table class="w-100">
+                                        <?php foreach($contact as $ct){ ?>
+                                        <tr>
+                                            <th><?= $ct->name ?></th>
+                                            <td width="70%"><?= $ct->value ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-
-
 
                     </div>
                 </div>
@@ -571,8 +482,7 @@
                     <div class="row">
                         <div class="col-12 text-center">
                             <div class="copyright__text">
-                                <p>© 2024 <strong>Minimalin</strong>. All rights reserved.</p>
-
+                                <p>© 2025 <strong>RQ COIL BUILDERS</strong>. All rights reserved.</p>
                             </div>
                         </div>
                     </div>

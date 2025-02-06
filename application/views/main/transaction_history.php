@@ -20,10 +20,10 @@
             <div class="card my-2">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-4">
                             <span><?= $main_data['receipt_payment'] ?></span>
                         </div>
-                        <div class="col-6 text-end">
+                        <div class="col-8 text-end">
                             <?php
                                 switch($main_data['status']){
                                     case '2':
@@ -127,13 +127,13 @@
                     <input type="hidden" name="action" value="add">
                     <input type="hidden" name="id" value="<?= $main_data['id'] ?>">
                     <div class="row align-items-center">
-                        <div class="col-3">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-3">
                             <label>Kirim Bukti Pembayaran</label>
                         </div>
-                        <div class="col-7">
+                        <div class="col-8 col-sm-8 col-md-5 col-lg-7">
                             <input type="file" name="proof_transaction" class="form-control" required>
                         </div>
-                        <div class="col-2">
+                        <div class="col-4 col-sm-4 col-md-3 col-lg-2">
                             <button class="btn btn-primary w-100" type="submit"><i
                                     class="fa-regular fa-paper-plane"></i></button>
                         </div>
@@ -143,36 +143,39 @@
                     <?= form_open_multipart('send_proof_payment', 'class="form_payment"') ?>
                     <input type="hidden" name="action" value="edit">
                     <input type="hidden" name="id" value="<?= $main_data['id'] ?>">
+
+
+                    <div class="row align-items-center my-2">
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+                            <label>Edit Bukti Pembayaran</label>
+                        </div>
+                        <div class="col-8 col-sm-8 col-md-5 col-lg-7">
+                            <input type="file" name="proof_transaction" class="form-control" required>
+                        </div>
+                        <div class="col-4 col-sm-4 col-md-3 col-lg-2">
+                            <button class="btn btn-primary w-100" type="submit"><i
+                                    class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                    </div>
+
+
                     <div class="row align-items-center justify-content-center my-2">
-                        <div class="col-3">
+                        <div class="col-7 col-sm-7 col-md-4 col-lg-3">
                             <label>Bukti Pembayaran</label>
                         </div>
-                        <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                        <div class="col-5 col-sm-3 col-md-2 col-lg-2">
                             <img src="<?= base_url('assets/img/transaction/') . $main_data['proof_transaction'] ?>"
                                 alt="proof_payment" class="w-100">
                         </div>
                         <div class="col-6 col-sm-6 col-md-7 col-lg-8"></div>
                     </div>
-
-                    <div class="row align-items-center my-2">
-                        <div class="col-3">
-                            <label>Edit Bukti Pembayaran</label>
-                        </div>
-                        <div class="col-7">
-                            <input type="file" name="proof_transaction" class="form-control" required>
-                        </div>
-                        <div class="col-2">
-                            <button class="btn btn-primary w-100" type="submit"><i
-                                    class="fa-solid fa-pen-to-square"></i></button>
-                        </div>
-                    </div>
                     <?= form_close() ?>
                     <?php } else { ?>
                     <div class="row align-items-center justify-content-center my-2">
-                        <div class="col-3">
+                        <div class="col-7 col-sm-7 col-md-4 col-lg-3">
                             <label>Bukti Pembayaran</label>
                         </div>
-                        <div class="col-3 col-sm-3 col-md-2 col-lg-1">
+                        <div class="col-5 col-sm-3 col-md-2 col-lg-2">
                             <img src="<?= base_url('assets/img/transaction/') . $main_data['proof_transaction'] ?>"
                                 alt="proof_payment" class="w-100">
                         </div>

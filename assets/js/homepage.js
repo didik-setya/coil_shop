@@ -4,6 +4,10 @@ const endpoint_url = "https://alamat.thecloudalert.com/api/";
 
 $(document).ready(function () {
 	load_province();
+	const modalShowProduct = document.getElementById("modalShowProduct");
+	modalShowProduct.addEventListener("show.bs.modal", function () {
+		window.scrollTo(0, 0);
+	});
 });
 
 function load_cart() {}
@@ -39,6 +43,7 @@ function get_detail_product(id) {
 			setTimeout(() => {
 				const data = d.data;
 				if (d.status == true) {
+					$("#product_cart").val(data.id);
 					$("#modalShowProduct").modal("show");
 					let price;
 
@@ -60,11 +65,16 @@ function get_detail_product(id) {
 						data.name +
 						'</h3><div class="quick__price">' +
 						price +
-						"<p>" +
+						"<pre>" +
 						data.desc +
-						"</p></div></div></div>";
-					$("#modalShowProduct .modal-body").html(html);
+						"</pre></div></div></div>";
+					$("#modalShowProduct .modal-body #content").html(html);
 				} else {
+					Swal.fire({
+						icon: "error",
+						title: "Error",
+						text: d.msg,
+					});
 				}
 			}, 200);
 		},
@@ -376,6 +386,7 @@ $("#sub_courir").change(function () {
 function removeLastTwoDigits(num) {
 	return num.replace(/\.00$/, "");
 }
+
 function stringToInteger(str) {
 	// Remove commas from the string
 	let cleanString = str.replace(/,/g, "");
@@ -514,4 +525,48 @@ $(".form_payment").submit(function (e) {
 			}, 200);
 		},
 	});
+});
+
+$(".qty_product").on("keyup mouseup", function () {
+	const order = $(this).data("ord");
+	const va = $(this).val();
+	const price = $("#product_price_" + order).data("price");
+
+	let calculate_price = va * price;
+	let formattedNumber = calculate_price.toLocaleString("en-US", {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
+	});
+	let new_price = removeLastTwoDigits(formattedNumber);
+
+	let count_total_product = 0;
+	setTimeout(() => {
+		let inputs_subtotal = document.getElementsByClassName("hidden_subtotal");
+		for (let i = 0; i < inputs_subtotal.length; i++) {
+			count_total_product += parseFloat(inputs_subtotal[i].value) || 0;
+		}
+		$("#total_product").val(count_total_product);
+		let formated_total_product = count_total_product.toLocaleString("en-US", {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		});
+		let new_total_product = removeLastTwoDigits(formated_total_product);
+		$("#show_total_product").html("Rp. " + new_total_product);
+
+		let cost_courier = $("#cost_courier").val() || 0;
+		let num_courier = stringToInteger(cost_courier);
+
+		let count_all = count_total_product + num_courier;
+		let formated_all = count_all.toLocaleString("en-US", {
+			minimumFractionDigits: 2,
+			maximumFractionDigits: 2,
+		});
+		let new_all = removeLastTwoDigits(formated_all);
+
+		$("#show_total_all").html("Rp. " + new_all);
+		$("#total_all").val(count_all);
+	}, 100);
+
+	$("#product_subtotal_" + order).html("Rp. " + new_price);
+	$("#hidden_subtotal_" + order).val(calculate_price);
 });

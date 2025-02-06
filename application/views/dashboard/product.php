@@ -15,7 +15,6 @@
                             <th>Nama Poduk</th>
                             <th>Harga</th>
                             <th>Berat (gram)</th>
-                            <th>Stock</th>
                             <th>Last Update</th>
                             <th width="10%"><i class="fa fa-cogs"></i></th>
                         </tr>
@@ -49,7 +48,6 @@
                                 ?>
                             </td>
                             <td><?= $p->product_weight ?></td>
-                            <td><?= $p->product_stock ?></td>
                             <td>
                                 <?= date_format($c_date, 'd F Y H:i') ?>
                             </td>
@@ -104,12 +102,6 @@
                         <label>Harga Produk</label>
                         <input type="number" name="price" id="price" class="form-control" min="0">
                         <small class="text-danger" id="err_price"></small>
-                    </div>
-
-                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group my-1">
-                        <label>Stok Produk</label>
-                        <input type="number" name="stock" id="stock" class="form-control" min="0">
-                        <small class="text-danger" id="err_stock"></small>
                     </div>
 
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group my-1">

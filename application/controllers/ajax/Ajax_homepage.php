@@ -19,6 +19,7 @@ class Ajax_homepage extends CI_Controller {
                 }
 
                 $array_data = [
+                    'id' => md5(sha1($data->id)),
                     'name' => $data->product_name,
                     'img' => base_url('assets/img/product/') . $data->product_images,
                     'price' => number_format($data->product_price),
@@ -53,7 +54,7 @@ class Ajax_homepage extends CI_Controller {
     public function add_cart(){
         $product = htmlspecialchars($this->input->post('product', true));
         $get_product = $this->db->where('md5(sha1(id))', $product)->get('product')->row();
-
+        $qty = $this->input->post('qty');
         
 
         $email = $this->session->userdata('user_email');
@@ -72,7 +73,7 @@ class Ajax_homepage extends CI_Controller {
 
                     $data = [
                             'id' => $get_product->id,
-                            'qty' => 1,
+                            'qty' => $qty,
                             'name' => 'lorem',
                             'price' =>$real_price,
                             'options' => [
@@ -163,7 +164,8 @@ class Ajax_homepage extends CI_Controller {
                 'err_telp' => form_error('telp'),
                 'token' => $this->security->get_csrf_hash()
             ];
-            json_output($output, 200);
+            echo json_encode($output);
+            die;
         } else {
             $get_user = get_users();
             if($get_user){
@@ -171,9 +173,32 @@ class Ajax_homepage extends CI_Controller {
                 $courier = $this->input->post('courir');
                 $service_courier = $this->input->post('service_courier');
                 $cost_courier = $this->input->post('cost_courier');
+                $new_qty = $this->input->post('qty_product');
 
                 if($zipcode && $courier && $service_courier && $cost_courier){
-                    $this->_checkout();
+                    if(in_array(0, $new_qty)){
+                        $output = [
+                            'type' => 'result',
+                            'status' => false,
+                            'msg' => 'Harap isi jumlah produk dengan benar',
+                            'token' => $this->security->get_csrf_hash()
+                        ];
+                        echo json_encode($output);
+                        die;
+                    } else {
+                        $rowid = $this->input->post('rowid');
+                        $count_rowid = count($rowid);
+                        $update_cart = [];
+                        for($i = 0; $i < $count_rowid; $i++){
+                            $row = [
+                                'rowid' => $rowid[$i],
+                                'qty' => $new_qty[$i]
+                            ];
+                            $update_cart[] = $row;
+                        }
+                        $this->cart->update($update_cart);
+                        $this->_checkout();
+                    }
                 } else {
                     $output = [
                         'type' => 'result',
@@ -181,8 +206,9 @@ class Ajax_homepage extends CI_Controller {
                         'msg' => 'Data is invalid',
                         'token' => $this->security->get_csrf_hash()
                     ];
-                    json_output($output, 200);
-                }
+                    echo json_encode($output);
+                    die;
+                }   
 
 
             } else {
