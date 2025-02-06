@@ -87,5 +87,8 @@ $route['change_settings']['POST'] = 'ajax/ajax_settings/update_settings';
 $route['load_data_transaction']['POST'] = 'ajax/ajax_transaction/load_data';
 $route['edit_status_checkout']['POST'] = 'ajax/ajax_transaction/edit_status';
 $route['detail_checkout']['POST'] = 'ajax/ajax_transaction/detail_checkout';
+//route users in admin
+$route['load_data_users']['POST'] = 'ajax/ajax_users/load_data';
+
 
 $route['verify_login_admin']['POST'] = 'auth/verify_login';

@@ -468,7 +468,8 @@ $config['csrf_exclude_uris'] = array(
     'get_prov',
     'calculate_courir_cost',
     'load_data_transaction',
-    'detail_checkout'
+    'detail_checkout',
+    'load_data_users'
 );
 
 /*

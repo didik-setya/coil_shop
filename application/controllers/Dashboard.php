@@ -50,4 +50,15 @@ class Dashboard extends CI_Controller {
         ];
         $this->load->view('dashboard/index', $data);
     }
+
+    public function users(){
+        $admin = get_admin();
+        $data = [
+            'title' => 'Dashboard',
+            'view' => 'dashboard/users',
+            'admin' => $admin,
+            'js' => ['users.js']
+        ];
+        $this->load->view('dashboard/index', $data);
+    }
 }

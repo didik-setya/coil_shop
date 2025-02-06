@@ -114,7 +114,7 @@ class Ajax_transaction extends CI_Controller {
                             </div>
                             <div class="col-9 col-sm-9 col-md-9">
                                 <span> '.$pr->product_name.'</span> <br>
-                                <small class="text-muted">'.$pr->qty.' X Rp. '.$pr->price.'</small>
+                                <small class="text-muted">'.$pr->qty.' X Rp. '.number_format($pr->price).'</small>
                             </div>
                 </div>
             ';
