@@ -22,7 +22,9 @@ function get_admin(){
         $out = [
             'name' => $admin->nama,
             'email' => $admin->email,
-            'image' => base_url('assets/img/user/') . $admin->image
+            'image' => base_url('assets/img/user/') . $admin->image,
+            'id' => $admin->id,
+            'pass' => $admin->password
         ];
         return $out;
     } else {

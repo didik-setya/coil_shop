@@ -176,6 +176,11 @@ class Ajax_homepage extends CI_Controller {
                 $new_qty = $this->input->post('qty_product');
 
                 if($zipcode && $courier && $service_courier && $cost_courier){
+                    // $filteredArray = array_filter($new_qty, function($angka) {
+                    //     return $angka === 0 || $angka > 100;
+                    // });
+                    // var_dump($filteredArray);
+                    // die;    
                     if(in_array(0, $new_qty)){
                         $output = [
                             'type' => 'result',

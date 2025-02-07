@@ -1,16 +1,34 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set('Asia/Jakarta');
+
 class Dashboard extends CI_Controller {
     public function index(){
         $admin = get_admin();
+        $now_year = date('Y');
+        $now_month = date('m');
+        $now_date = date('d');
+
+
+        $jml_product = $this->db->get('product')->num_rows();
+        $jml_users = $this->db->get('users')->num_rows();
+        $jml_checkout = $this->db->where([
+            'day(create_at)' => $now_date,
+            'month(create_at)' => $now_month,
+            'year(create_at)' => $now_year
+        ])->get('checkout')->num_rows();
+
+        
         $data = [
             'title' => 'Dashboard',
             'view' => 'dashboard/dashboard',
-            'admin' => $admin
+            'admin' => $admin,
+            'jml_product' => $jml_product,
+            'jml_users' => $jml_users,
+            'jml_checkout' => $jml_checkout
         ];
         $this->load->view('dashboard/index', $data);
     }
-
     
     public function product(){
         $admin = get_admin();
@@ -58,6 +76,17 @@ class Dashboard extends CI_Controller {
             'view' => 'dashboard/users',
             'admin' => $admin,
             'js' => ['users.js']
+        ];
+        $this->load->view('dashboard/index', $data);
+    }
+
+    public function settings(){
+        $admin = get_admin();
+        $data = [
+            'title' => 'Pengaturan Akun',
+            'view' => 'dashboard/user_settings',
+            'admin' => $admin,
+            'js' => ['account.js']
         ];
         $this->load->view('dashboard/index', $data);
     }

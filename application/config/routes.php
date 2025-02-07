@@ -76,6 +76,7 @@ $route['product'] = 'dashboard/product';
 $route['web_settings'] = 'dashboard/web_settings';
 $route['transaction'] = 'dashboard/transaction';
 $route['users'] = 'dashboard/users';
+$route['settings_admin'] = 'dashboard/settings';
 
 
 //route product in admin
@@ -89,6 +90,10 @@ $route['edit_status_checkout']['POST'] = 'ajax/ajax_transaction/edit_status';
 $route['detail_checkout']['POST'] = 'ajax/ajax_transaction/detail_checkout';
 //route users in admin
 $route['load_data_users']['POST'] = 'ajax/ajax_users/load_data';
+//route settings account in admin
+$route['edit_account_admin']['POST'] = 'ajax/ajax_account/edit_profile';
+$route['validation_password']['POST'] = 'ajax/ajax_account/validation_password';
+
 
 
 $route['verify_login_admin']['POST'] = 'auth/verify_login';

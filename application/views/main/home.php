@@ -172,32 +172,32 @@
                     <div class="feature__2__single feature__3__single">
 
                         <div class="feature__2__text">
-                            <h4>Free Shipping</h4>
-                            <p>On orders over $99.</p>
+                            <h4>Produk Berkualitas</h4>
+                            <p>Dibuat dari material terbaik untuk rasa maksimal</p>
                         </div>
                     </div>
 
                     <div class="feature__2__single feature__3__single">
 
                         <div class="feature__2__text">
-                            <h4>Money Back</h4>
-                            <p>Money back in 15 days..</p>
+                            <h4>Beragam Pilihan</h4>
+                            <p>Dari prebuilt coil, handmade coil, hingga custom coil, semua tersedia!</p>
                         </div>
                     </div>
 
                     <div class="feature__2__single feature__3__single">
 
                         <div class="feature__2__text">
-                            <h4>Secure Checkout</h4>
-                            <p>100% Payment Secure.</p>
+                            <h4>Harga Terjangkau</h4>
+                            <p>Dapatkan produk terbaik tanpa harus merogoh kocek dalam.</p>
                         </div>
                     </div>
 
                     <div class="feature__2__single feature__3__single">
 
                         <div class="feature__2__text">
-                            <h4>Online Support</h4>
-                            <p>Ensure the product quality.</p>
+                            <h4>Pelayanan Terbaik</h4>
+                            <p>Fast response, pengiriman cepat, dan garansi kepuasan pelanggan.</p>
                         </div>
                     </div>
 

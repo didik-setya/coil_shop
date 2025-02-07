@@ -5,8 +5,34 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><?= $title ?></title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="title" content="RQ COIL BUILDERS">
+    <meta name="description"
+        content="RQ COIL BUILDERS lahir dari kecintaan kami terhadap dunia vape. Kami percaya bahwa coil yang berkualitas adalah">
+    <meta name="keywords" content="coil, vape, vape store, pod">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="revisit-after" content="1 days">
+    <meta name="author" content="Paijo">
+
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<?= base_url() ?>" />
+    <meta property="og:title" content="RQ COIL BUILDERS" />
+    <meta property="og:description"
+        content="RQ COIL BUILDERS lahir dari kecintaan kami terhadap dunia vape. Kami percaya bahwa coil yang berkualitas adalah" />
+    <meta property="og:image" content="<?= base_url('assets/img/web/logo.png') ?>" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="<?= base_url() ?>" />
+    <meta property="twitter:title" content="RQ COIL BUILDERS" />
+    <meta property="twitter:description"
+        content="RQ COIL BUILDERS lahir dari kecintaan kami terhadap dunia vape. Kami percaya bahwa coil yang berkualitas adalah" />
+    <meta property="twitter:image" content="<?= base_url('assets/img/web/logo.png') ?>" />
+
 
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/img/web/logo.png') ?>">
     <!-- Place favicon.ico in the root directory -->
@@ -473,6 +499,11 @@
                             </div>
                         </div>
 
+
+                        <a href="https://api.whatsapp.com/send?phone=6285236855383&text=Halo%20RQ%20Coil%20Builders%20Saya%20Berkunjung%20dari%20Website%20Ingin%20Bertanya%20Tentang%20Koil%20Vape"
+                            class="float" target="_blank">
+                            <i class="fa-brands fa-whatsapp my-float"></i>
+                        </a>
                     </div>
                 </div>
             </div>
