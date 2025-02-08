@@ -117,8 +117,8 @@
             </div>
 
         </div>
-        <div class="col-md-12 col-lg-6">
-            <table class="table table-sm table-bordered mt-3">
+        <div class="col-md-12 col-lg-6 table-responsive">
+            <table class="table table-sm table-bordered mt-3 w-100" id="table_list_checkout">
                 <thead>
                     <tr>
                         <th>Produk</th>
@@ -139,12 +139,12 @@
                     <tr>
                         <input type="hidden" name="rowid[]" value="<?= $c['rowid'] ?>">
                         <td>
-                            <div class="row align-items-center">
-                                <div class="col-3">
+                            <div class="row align-items-center g-0">
+                                <div class="col-4 text-center">
                                     <img src="<?= $c['options']['img'] ?>" alt="image" class="w-100">
                                 </div>
-                                <div class="col-9">
-                                    <h6><?= $c['options']['real_name'] ?></h6>
+                                <div class="col-8">
+                                    <b><?= $c['options']['real_name'] ?></b>
                                     <small data-price="<?= $c['price'] ?>" id="product_price_<?=$a++?>">Rp.
                                         <?= number_format($c['price']) ?></small>
                                 </div>
@@ -164,19 +164,19 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="2">Total Produk</th>
-                        <th id="show_total_product">Rp. <?= number_format($this->cart->total()) ?>
+                        <th>Total Produk</th>
+                        <th colspan="2" id="show_total_product">Rp. <?= number_format($this->cart->total()) ?>
                         </th>
                         <input type="hidden" name="total_product" id="total_product"
                             value="<?= $this->cart->total() ?>">
                     </tr>
                     <tr>
-                        <th colspan="2">Ongkos Kirim</th>
-                        <th id="show_ongkir"></th>
+                        <th>Ongkos Kirim</th>
+                        <th colspan="2" id="show_ongkir"></th>
                     </tr>
                     <tr>
-                        <th colspan="2">Total Keseluruhan</th>
-                        <th id="show_total_all">
+                        <th>Total Keseluruhan</th>
+                        <th colspan="2" id="show_total_all">
                         </th>
                         <input type="hidden" name="total_all" id="total_all">
                     </tr>

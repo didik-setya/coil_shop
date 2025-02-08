@@ -164,8 +164,11 @@
                             <label>Bukti Pembayaran</label>
                         </div>
                         <div class="col-5 col-sm-3 col-md-2 col-lg-2">
-                            <img src="<?= base_url('assets/img/transaction/') . $main_data['proof_transaction'] ?>"
-                                alt="proof_payment" class="w-100">
+                            <span><a href="#"
+                                    onclick="view_payment('<?= base_url('assets/img/transaction/') . $main_data['proof_transaction'] ?>')"><i
+                                        class="fa-solid fa-eye"></i> Lihat
+                                    bukti</a></span>
+
                         </div>
                         <div class="col-6 col-sm-6 col-md-7 col-lg-8"></div>
                     </div>
@@ -176,8 +179,10 @@
                             <label>Bukti Pembayaran</label>
                         </div>
                         <div class="col-5 col-sm-3 col-md-2 col-lg-2">
-                            <img src="<?= base_url('assets/img/transaction/') . $main_data['proof_transaction'] ?>"
-                                alt="proof_payment" class="w-100">
+                            <span><a href="#"
+                                    onclick="view_payment('<?= base_url('assets/img/transaction/') . $main_data['proof_transaction'] ?>')"><i
+                                        class="fa-solid fa-eye"></i> Lihat
+                                    bukti</a></span>
                         </div>
                         <div class="col-6 col-sm-6 col-md-7 col-lg-8"></div>
                     </div>
@@ -188,4 +193,21 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalTransaction" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div style="z-index: 10;"
+        class="modal-dialog modal-lg modal-fullscreen-lg-down modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Detail Transaksi</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
 </div>

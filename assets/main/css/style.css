@@ -7283,3 +7283,10 @@ blockquote i {
 .my-float{
 	margin-top:16px;
 }
+
+
+@media screen and (max-width: 400px) {
+  #table_list_checkout {
+    font-size: 10px;
+  }
+}

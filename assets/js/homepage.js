@@ -270,6 +270,7 @@ $("#zipcode").change(function () {
 	const thisval = $(this).val();
 	if (thisval) {
 		$("#courir").html(html);
+		$("#sub_courir").html("");
 	} else {
 		$("#courir").html("");
 		$("#sub_courir").html("");
@@ -281,6 +282,7 @@ $("#courir").change(function () {
 
 	const zipcode = $("#zipcode").val();
 	const weight = $("#weight").val();
+	$("#sub_courir").html("");
 
 	if (courir) {
 		$.ajax({
@@ -570,3 +572,10 @@ $(".qty_product").on("keyup mouseup", function () {
 	$("#product_subtotal_" + order).html("Rp. " + new_price);
 	$("#hidden_subtotal_" + order).val(calculate_price);
 });
+
+// $(".view_payment").click(function () {
+function view_payment(data = null) {
+	let html = '<img src="' + data + '" alt="payment" class="w-100">';
+	$("#modalTransaction .modal-body").html(html);
+	$("#modalTransaction").modal("show");
+}
