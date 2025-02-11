@@ -10,7 +10,7 @@
     <meta name="title" content="RQ COIL BUILDERS">
     <meta name="description"
         content="RQ COIL BUILDERS lahir dari kecintaan kami terhadap dunia vape. Kami percaya bahwa coil yang berkualitas adalah">
-    <meta name="keywords" content="coil, vape, vape store, pod">
+    <meta name="keywords" content="coil, vape, vape store, pod, coil builder, vape Surabaya, vape murah">
     <meta name="robots" content="index, follow">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="revisit-after" content="1 days">
@@ -501,7 +501,7 @@
 
 
                         <a href="https://api.whatsapp.com/send?phone=6285236855383&text=Halo%20RQ%20Coil%20Builders%20Saya%20Berkunjung%20dari%20Website%20Ingin%20Bertanya%20Tentang%20Koil%20Vape"
-                            class="float" target="_blank">
+                            class="float float-end" target="_blank">
                             <i class="fa-brands fa-whatsapp my-float"></i>
                         </a>
                     </div>
@@ -546,7 +546,7 @@
     <script src="<?= base_url('assets/main/') ?>js/jquery.meanmenu.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/ajax-form.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/wow.min.js "></script>
-    <script src="<?= base_url('assets/main/') ?>js/jquery.scrollUp.min.js "></script>
+    <!-- <script src="<?= base_url('assets/main/') ?>js/jquery.scrollUp.min.js "></script> -->
     <script src="<?= base_url('assets/main/') ?>js/imagesloaded.pkgd.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/jquery.magnific-popup.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/waypoints.min.js "></script>

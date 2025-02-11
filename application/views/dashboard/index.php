@@ -41,9 +41,9 @@
             <a class="sidebar-brand d-flex align-items-center justify-content-center bg-dark"
                 href="<?= base_url('dashboard') ?>">
                 <div class="sidebar-brand-icon">
-                    <img src="<?= base_url('assets/admin/') ?>img/logo/logo2.png">
+                    <img src="<?= base_url('assets/img/') ?>web/new_logo.png">
                 </div>
-                <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+                <div class="sidebar-brand-text mx-3"></div>
             </a>
             <hr class="sidebar-divider my-0">
 
