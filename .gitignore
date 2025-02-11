@@ -35,3 +35,4 @@ assets/img/product/*
 assets/img/user/*
 !assets/img/user/default.webp
 assets/img/transaction/*
+*.zip
