@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'http://localhost/coil_vape/';
 $config['rajaongkir_url'] = 'https://api.rajaongkir.com/starter/';
-$config['rajaongkir_key'] = 'Pt2OvtoLe6093964fc15e833FVRj2X8S';
+$config['rajaongkir_key'] = 'jwgHs2GB3b413aae9d092d011WvDfz8D';
 /*
 |--------------------------------------------------------------------------
 | Index File

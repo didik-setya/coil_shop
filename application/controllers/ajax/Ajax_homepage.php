@@ -127,13 +127,14 @@ class Ajax_homepage extends CI_Controller {
 
     public function cost_courir(){
         cek_ajax();
-        $courir= htmlspecialchars($this->input->post('courir'));
+        $courir= htmlspecialchars($this->input->post('courier'));
         $zipcode= htmlspecialchars($this->input->post('zipcode'));
         $weight= htmlspecialchars($this->input->post('weight'));
 
-        if($courir && $zipcode && $weight){
+        if($zipcode && $weight && $courir){
             $settings = $this->db->get_where('settings', ['id' => 1])->row();
             $main_point = json_decode($settings->shipping_point);
+            $shipping_decode = json_decode($settings->shipping);
             $zip_point = $main_point->zip_code;
             $this->api->calculate_courir_cost($zip_point, $zipcode, $weight, $courir);
         } else {
@@ -141,7 +142,7 @@ class Ajax_homepage extends CI_Controller {
                 'status' => false,
                 'msg' => 'Invalid parameters'
             ];
-            json_output($msg);
+            json_output($msg, 200);
         }
     }
 
@@ -170,22 +171,22 @@ class Ajax_homepage extends CI_Controller {
             $get_user = get_users();
             if($get_user){
                 $zipcode = $this->input->post('zipcode');
-                $courier = $this->input->post('courir');
+                $courier = $this->input->post('courier');
                 $service_courier = $this->input->post('service_courier');
                 $cost_courier = $this->input->post('cost_courier');
                 $new_qty = $this->input->post('qty_product');
 
                 if($zipcode && $courier && $service_courier && $cost_courier){
-                    // $filteredArray = array_filter($new_qty, function($angka) {
-                    //     return $angka === 0 || $angka > 100;
-                    // });
+                    $filteredArray = array_filter($new_qty, function($angka) {
+                        return $angka === 0 || $angka > 100;
+                    });
                     // var_dump($filteredArray);
                     // die;    
-                    if(in_array(0, $new_qty)){
+                    if($filteredArray){
                         $output = [
                             'type' => 'result',
                             'status' => false,
-                            'msg' => 'Harap isi jumlah produk dengan benar',
+                            'msg' => 'Jumlah produk tidak boleh 0 atau lebih dari 100',
                             'token' => $this->security->get_csrf_hash()
                         ];
                         echo json_encode($output);
@@ -250,7 +251,7 @@ class Ajax_homepage extends CI_Controller {
         $address = htmlspecialchars($this->input->post('address'));
         $notes = htmlspecialchars($this->input->post('notes'));
 
-        $courier = htmlspecialchars($this->input->post('courir'));
+        $courier = htmlspecialchars($this->input->post('courier'));
         $service_courier = htmlspecialchars($this->input->post('service_courier'));
         $cost_courier = htmlspecialchars($this->input->post('cost_courier'));
         $payment = htmlspecialchars($this->input->post('payment'));
@@ -264,7 +265,8 @@ class Ajax_homepage extends CI_Controller {
         $sub_checkout = [];
         $data_payment = [];
         foreach($cart as $ct){
-            $total_weight += $ct['options']['weight'];
+            $sub_total_weight = $ct['options']['weight'] * $ct['qty'];
+            $total_weight += $sub_total_weight;
             $row = [
                 'id_checkout' => $main_id,
                 'id_product' => $ct['id'],
@@ -329,6 +331,10 @@ class Ajax_homepage extends CI_Controller {
             'last_update' => date('Y-m-d H:i:s'),
         ];
         
+        // var_dump($check_courier);
+        // var_dump($data_checkout, $sub_checkout);
+        // die;
+
 
         $this->db->trans_begin();
         $this->db->insert('checkout', $data_checkout);
@@ -483,5 +489,11 @@ class Ajax_homepage extends CI_Controller {
             json_output($output, 200);
         }
         
+    }
+
+    public function search_address(){
+        cek_ajax();
+        $request = htmlspecialchars($this->input->post('input_req', true));
+        $this->api->search_address($request);
     }
 }

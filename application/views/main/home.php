@@ -241,3 +241,12 @@
         </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function() {
+    const modalShowProduct = document.getElementById("modalShowProduct");
+    modalShowProduct.addEventListener("show.bs.modal", function() {
+        window.scrollTo(0, 0);
+    });
+})
+</script>

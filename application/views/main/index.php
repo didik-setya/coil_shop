@@ -46,6 +46,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/main/') ?>css/slick.css">
     <link rel="stylesheet" href="<?= base_url('assets/main/') ?>css/style.css">
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </head>
@@ -445,6 +446,11 @@
         $privacy = $settings->privacy_policy;
         $refund = $settings->refund_policy;
         $contact = json_decode($settings->contact);
+            if($settings->address != '' || $settings->address != null){
+                $address = '<tr><th>Alamat</th><td width="70%">'.$settings->address.'</td></tr>';
+            } else {
+                $address = '';
+            }
         ?>
 
         <!-- footer__section__start -->
@@ -488,6 +494,7 @@
                                 <h4 class="footer__title">Hubungi Kami.</h4>
                                 <div class="footer__content">
                                     <table class="w-100">
+                                        <?= $address ?>
                                         <?php foreach($contact as $ct){ ?>
                                         <tr>
                                             <th><?= $ct->name ?></th>
@@ -536,7 +543,6 @@
     const base_url = '<?= base_url() ?>';
     </script>
     <script src="<?= base_url('assets/main/') ?>js/vendor/modernizr-3.5.0.min.js "></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="<?= base_url('assets/main/') ?>js/popper.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/bootstrap.min.js "></script>
@@ -546,7 +552,7 @@
     <script src="<?= base_url('assets/main/') ?>js/jquery.meanmenu.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/ajax-form.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/wow.min.js "></script>
-    <!-- <script src="<?= base_url('assets/main/') ?>js/jquery.scrollUp.min.js "></script> -->
+    <script src="<?= base_url('assets/main/') ?>js/jquery.scrollUp.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/imagesloaded.pkgd.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/jquery.magnific-popup.min.js "></script>
     <script src="<?= base_url('assets/main/') ?>js/waypoints.min.js "></script>
@@ -572,6 +578,10 @@
         const c_name = '<?= $this->security->get_csrf_token_name() ?>'
         $('input[name="' + c_name + '"]').val(token)
     }
+
+    $(document).ready(function() {
+        const scroll = $('#scrollUp').addClass('d-none')
+    })
     </script>
     <script src="<?= base_url('assets/js/homepage.js') ?>"></script>
 

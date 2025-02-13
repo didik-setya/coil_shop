@@ -27,28 +27,28 @@
                             <?php
                                 switch($main_data['status']){
                                     case '2':
-                                        echo '<span class="bg-warning px-2">Menunggu Pembayaran</span>';
+                                        echo '<span class="text-warning px-2">Menunggu Pembayaran</span>';
                                         break;
                                     case '3':
-                                        echo '<span class="bg-primary px-2">Menunggu Konfirmasi</span>';
+                                        echo '<span class="text-primary px-2">Menunggu Konfirmasi</span>';
                                         break;
                                     case '4':
-                                        echo '<span class="bg-primary px-2">Packing</span>';
+                                        echo '<span class="text-primary px-2">Packing</span>';
                                         break;
                                     case '5':
-                                        echo '<span class="bg-primary px-2">Di Kirim</span>';
+                                        echo '<span class="text-primary px-2">Di Kirim</span>';
                                         break;
                                     case '1':
-                                        echo '<span class="bg-success px-2">Selesai</span>';
+                                        echo '<span class="text-success px-2">Selesai</span>';
                                         break;
                                     case '0':
-                                        echo '<span class="bg-danger px-2">Batal</span>';
+                                        echo '<span class="text-danger px-2">Batal</span>';
                                         break;
                                     case '9':
-                                        echo '<span class="bg-danger px-2">Pengembalian</span>';
+                                        echo '<span class="text-danger px-2">Pengembalian</span>';
                                         break;
                                     default:
-                                        echo '<span class="bg-secondary px-2">Unknow</span>';
+                                        echo '<span class="text-secondary px-2">Unknow</span>';
                                         break;
                                 }
                             ?>

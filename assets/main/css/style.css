@@ -7288,4 +7288,48 @@ blockquote i {
   #table_list_checkout {
     font-size: 10px;
   }
+  .select-address {
+    font-size: 11px;
+  }
+
+  #input_req::placeholder {
+    font-size: 11px;
+  }
+}
+
+
+.err_form {
+  font-size: 10px;
+  color: red;
+}
+
+.select-address {
+  border: 1px solid #0d6efd;
+  cursor: pointer;
+}
+
+.select-address:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+#selected_address {
+  border: 1px solid #0d6efd;
+  cursor: pointer;
+}
+
+#selected_service_courier {
+  border: 1px solid #0d6efd;
+  cursor: pointer;
+}
+
+#selected_service_courier:hover {
+  background-color: #0d6efd;
+  color: white;
+}
+
+#selected_courier {
+  border: 1px solid#0d6efd;
+  color: white;
+  cursor: pointer;
 }

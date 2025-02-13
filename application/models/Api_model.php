@@ -27,17 +27,28 @@ class Api_model extends CI_Model {
         curl_close($curl);
 
         if ($err) {
-        $msg = "cURL Error #:" . $err;
-        $output = [
-            'status' => true,
-            'msg' => $msg
-        ];
+            $msg = "cURL Error #:" . $err;
+            $output = [
+                'status' => false,
+                'msg' => $msg
+            ];
         } else {
             $decode_response = json_decode($response);
             if($decode_response->meta->code == 200){
+                
+                $all_list_courier =  file_get_contents('./assets/courir.json');
+                $decode_courier = json_decode($all_list_courier);
+                $logo = '';
+                foreach($decode_courier as $dc){
+                    if($dc->code == $courir){
+                        $logo = $dc->logo;
+                    }
+                }
+                
                 $output = [
                     'status' => true,
-                    'data' => $decode_response->data
+                    'data' => $decode_response->data,
+                    'logo' => base_url($logo)
                 ];
             } else {
                 $output = [
@@ -47,7 +58,8 @@ class Api_model extends CI_Model {
             }
 
         }
-    json_output($output, 200);
+
+        json_output($output, 200);  
 
     }
 
@@ -89,7 +101,7 @@ class Api_model extends CI_Model {
                 'msg' => $msg,
                 'token' => $this->security->get_csrf_hash()
             ];
-            json_output($output, 200);
+            
         
         } else {
             $decode_response = json_decode($response);
@@ -116,9 +128,57 @@ class Api_model extends CI_Model {
                     'msg' => $decode_response->meta->message,
                     'token' => $this->security->get_csrf_hash()
                 ];
-                json_output($output, 200);
+            }
+        }
+        json_output($output, 200);
+
+    }
+
+
+    public function search_address($request){
+        $api_key = $this->config->item('rajaongkir_key');
+        
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://rajaongkir.komerce.id/api/v1/destination/domestic-destination?search=' . $request . '&limit=20',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "key: " . $api_key
+        ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+        
+        if($err){
+            $msg = "cURL Error #:" . $err;
+
+            $output = [
+                'status' => false,
+                'msg' => $msg,
+                'token' => $this->security->get_csrf_hash()
+            ];
+        } else {
+            $decode_response = json_decode($response);
+            if($decode_response->meta->code == 200){
+                $output = [
+                    'status' => true,
+                    'data' => $decode_response->data,
+                    'token' => $this->security->get_csrf_hash()
+                ];
+            } else {
+                $output = [
+                    'status' => false,
+                    'msg' => $decode_response->meta->message,
+                    'token' => $this->security->get_csrf_hash()
+                ];
             }
         }
 
+        json_output($output, 200);
     }
 }

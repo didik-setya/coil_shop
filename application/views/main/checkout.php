@@ -10,65 +10,35 @@
     <div class="row">
         <div class="col-md-12 col-lg-6">
             <div class="form-group my-2">
-                <label for="name">Nama Lengkap *</label>
+                <label>Alamat Pengiriman</label>
+                <div class="bg-dark text-center" id="frame_selected_address">
+                    <button type="button" class="btn btn-sm btn-primary my-3" onclick="search_address()">Cari
+                        Alamat</button>
+                </div>
+
+            </div>
+            <div class="form-group my-2">
+                <label for="name">Nama Lengkap</label>
                 <input type="text" id="name" name="full_name" class="form-control" placeholder="Nama Lengkap"
                     value="<?= $user['name'] ?>">
-                <small class="text-danger" id="err_name"></small>
+                <small class="text-danger err_form" id="err_name"></small>
             </div>
 
             <div class="form-group my-2">
-                <label for="email">Email *</label>
+                <label for="email">Email</label>
                 <input type="text" id="email" name="email" class="form-control" placeholder="Email"
                     value="<?= $user['email'] ?>">
-                <small class="text-danger" id="err_email"></small>
+                <small class="text-danger err_form" id="err_email"></small>
             </div>
 
             <div class="form-group my-2">
-                <label for="no_telp">No. Telp *</label>
+                <label for="no_telp">No. Telp</label>
                 <input type="text" id="no_telp" name="telp" class="form-control" placeholder="No. Telp">
-                <small class="text-danger" id="err_telp"></small>
+                <small class="text-danger err_form" id="err_telp"></small>
             </div>
 
 
-            <div class="row">
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group my-2">
-                        <label for="province">Provinsi</label>
-                        <select class="form-control" id="province" name="province" required>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group my-2">
-                        <label for="city">Kabupaten</label>
-                        <select class="form-control" id="city" name="city" required>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group my-2">
-                        <label for="distric">Kecamatan</label>
-                        <select class="form-control" id="distric" name="distric" required>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6">
-                    <div class="form-group my-2">
-                        <label for="subdistric">Desa</label>
-                        <select class="form-control" id="subdistric" name="subdistric" required>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group my-2">
-                        <label for="zipcode">Kode Pos</label>
 
-                        <input type="hidden" name="hidden_city" id="hidden_city" class="form-control">
-                        <input type="hidden" name="hidden_distric" id="hidden_distric" class="form-control">
-                        <select name="zipcode" id="zipcode" class="form-control" required></select>
-                    </div>
-                </div>
-            </div>
 
             <div class="form-group my-2">
                 <label for="address">Alamat Lengkap</label>
@@ -80,44 +50,9 @@
                 <textarea class="form-control" name="notes" id="notes" rows="3"></textarea>
             </div>
 
-            <div class="row">
-
-                <div class="col-12">
-                    <label for="courir">Kurir</label>
-                    <div class="form-group my-2">
-                        <select class="form-control" id="courir" name="courir" required>
-
-                        </select>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="form-group my-2">
-                        <label for="sub_courir">Layanan Kurir</label>
-                        <select name="sub_courir" id="sub_courir" class="form-control">
-                        </select>
-                    </div>
-
-
-                    <div id="select_courier" class="d-none">
-                        <option value="">--pilih--</option>
-                        <?php 
-                                $decode_courir = json_decode($courir);
-                                $selected_courir = json_decode($settings->shipping);
-                                foreach($selected_courir as $sc){
-                                foreach($decode_courir as $dc){
-                                if($sc->code == $dc->code){
-                                    echo '<option value="'.$dc->code.'">'.$dc->name.'</option>';
-                                }
-                            }
-                        }
-                        ?>
-                    </div>
-
-                </div>
-            </div>
-
         </div>
         <div class="col-md-12 col-lg-6 table-responsive">
+            <?php $weight = 0; ?>
             <table class="table table-sm table-bordered mt-3 w-100" id="table_list_checkout">
                 <thead>
                     <tr>
@@ -128,13 +63,16 @@
                 </thead>
                 <tbody>
                     <?php
-                    $weight = 0;
+                    $total_all_weight = 0;
                     $order = 1;
                     $a = 1;
                     $b = 1;
                     $c1 = 1;
+                    $c2 = 1;
+                    $c3 = 1;
                     foreach($cart as $c){ 
-                        $weight += $c['options']['weight'] * $c['qty'];    
+                        $total_weight = $c['options']['weight'] * $c['qty'];  
+                        $total_all_weight += $total_weight;
                     ?>
                     <tr>
                         <input type="hidden" name="rowid[]" value="<?= $c['rowid'] ?>">
@@ -144,7 +82,7 @@
                                     <img src="<?= $c['options']['img'] ?>" alt="image" class="w-100">
                                 </div>
                                 <div class="col-8">
-                                    <b><?= $c['options']['real_name'] ?></b>
+                                    <b><?= $c['options']['real_name'] ?></b> <br>
                                     <small data-price="<?= $c['price'] ?>" id="product_price_<?=$a++?>">Rp.
                                         <?= number_format($c['price']) ?></small>
                                 </div>
@@ -160,31 +98,40 @@
                     </tr>
                     <input type="hidden" name="product_subtotal" value="<?= $c['subtotal'] ?>"
                         id="hidden_subtotal_<?=$c1++?>" class="hidden_subtotal">
+                    <input type="hidden" name="product_weight_subtotal"
+                        value="<?php $weight = $c['options']['weight']; $qty = $c['qty']; $total_weight = $weight * $qty; echo $total_weight; ?>"
+                        id="hidden_weight_subtotal_<?=$c2++?>" class="hidden_weight_subtotal">
+                    <input type="hidden" name="product_weight" value="<?= $c['options']['weight'] ?>"
+                        id="hidden_weight_<?=$c3++?>" class="hidden_weight">
                     <?php } ?>
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Total Produk</th>
-                        <th colspan="2" id="show_total_product">Rp. <?= number_format($this->cart->total()) ?>
-                        </th>
-                        <input type="hidden" name="total_product" id="total_product"
-                            value="<?= $this->cart->total() ?>">
-                    </tr>
-                    <tr>
-                        <th>Ongkos Kirim</th>
-                        <th colspan="2" id="show_ongkir"></th>
-                    </tr>
-                    <tr>
-                        <th>Total Keseluruhan</th>
-                        <th colspan="2" id="show_total_all">
-                        </th>
-                        <input type="hidden" name="total_all" id="total_all">
-                    </tr>
-                </tfoot>
             </table>
-            <input type="hidden" name="weight" id="weight" value="<?= $weight ?>">
+
+            <input type="hidden" name="weight" id="weight" value="<?= $total_all_weight ?>">
             <input type="hidden" name="cost_courier" id="cost_courier" value="0">
             <input type="hidden" name="service_courier" id="service_courier">
+            <input type="hidden" name="courier" id="hidden_courier">
+
+
+            <input type="hidden" name="province" id="province">
+            <input type="hidden" name="city" id="city">
+            <input type="hidden" name="distric" id="distric">
+            <input type="hidden" name="subdistric" id="subdistric">
+            <input type="hidden" name="zipcode" id="zipcode">
+
+
+
+            <div class="form-group my-2">
+                <label>Pilih Kurir</label>
+                <div class="bg-dark" id="frame_selected_courier">
+                    <div class="text-center">
+                        <button class="btn btn-sm btn-primary my-3" disabled type="button">Harap pilih
+                            alamat
+                            pengiriman</button>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="form-group my-2">
                 <label for="payment">Pembayaran</label>
@@ -205,6 +152,23 @@
                 </select>
             </div>
 
+            <table class="my-2 table table-sm table-bordered w-100">
+                <tr>
+                    <th>Total Produk</th>
+                    <td id="show_total_product">Rp. <?= number_format($this->cart->total()) ?></td>
+                    <input type="hidden" name="total_all_product" id="total_all_product"
+                        value="<?=$this->cart->total()?>">
+                </tr>
+                <tr>
+                    <th>Ongkos Kirim</th>
+                    <td id="show_ongkir">Rp. 0</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <td id="show_total_all">Rp. <?= number_format($this->cart->total()) ?></td>
+                </tr>
+            </table>
+
             <div class="text-center py-4">
                 <button class="btn btn-sm btn-primary" type="submit">Buat Pesanan</button>
             </div>
@@ -213,3 +177,76 @@
     </div>
     <?= form_close() ?>
 </div>
+
+
+<!-- Modal -->
+<div class="modal" id="modalSearchAddress" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down modal-lg  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Cari Alamat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= form_open('search_address', 'id="form_search_address"'); ?>
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload"
+                        name="input_req" id="input_req" placeholder="Masukan nama wilayah atau kode pos" required>
+                    <button class="btn btn-outline-primary" type="submit" id="inputGroupFileAddon04"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <?= form_close() ?>
+
+                <div id="search_result">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalSelectCourier" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down modal-lg  modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Pilih Kurir</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Pilih Kurir</label>
+                    <select name="select_courier" id="select_courier" class="form-control">
+                        <option value="">--pilih--</option>
+                        <?php 
+                                $decode_courir = json_decode($courir);
+                                $selected_courir = json_decode($settings->shipping);
+                                foreach($selected_courir as $sc){
+                                foreach($decode_courir as $dc){
+                                if($sc->code == $dc->code){
+                                    echo '<option value="'.$dc->code.'">'.$dc->name.'</option>';
+                                }
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div id="frame_select_service_courier">
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    const modalCourier = document.getElementById("modalSelectCourier");
+    modalCourier.addEventListener("show.bs.modal", function() {
+        window.scrollTo(0, 0);
+    });
+});
+</script>

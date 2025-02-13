@@ -69,6 +69,7 @@ $route['get_prov']['POST'] = 'ajax/ajax_homepage/get_api_prov';
 $route['calculate_courir_cost']['POST'] = 'ajax/ajax_homepage/cost_courir';
 $route['validation_checkout']['POST'] = 'ajax/ajax_homepage/validation_checkout';
 $route['send_proof_payment']['POST'] = 'ajax/ajax_homepage/proof_payment';
+$route['search_address']['POST'] = 'ajax/ajax_homepage/search_address';
 
 
 //route page admin
